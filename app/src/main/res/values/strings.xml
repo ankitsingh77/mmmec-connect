@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Quipmate</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="logout">Logout</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string> 
+    <string name="code_got">Already have the code? <u>Click here!</u></string>
+    <string name="signup_code_desc">Enter your email and a 4 digit code will be send to your email address.</string>
+    <string name="enter_your_email">Enter Your Email Address</string>
+    <string name="signup_email">Sign Up</string>
+    <string name="signup"><u>Sign Up for Quipmate</u></string>
+    <string name="quipmate_image">Quipmate Image</string>
+    <string name="OK">OK</string>
+    <string name="network_error">Connect your device to internet to continue.</string>
+    <string name="error">error</string>
+    <string name="code">code</string>
+    <string name="invalid_credential">Wrong email or password</string> 
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_friends_fragment">FriendsFragmentActivity</string>
+    <string name="search_friend">Name or email</string>
+	<string name="pimage">Profile Image</string>
+	<string name="bt_search">Search</string>
+	<string name="friendlist_complete">No more friends to display</string>
+	<string name="load_more_friends">Load More</string>
+	<string name="invalid_query">Enter Valid Search Query</string>
+	<string name="no_results">No Results Found</string>
+	<string name="status_hint">What\'s going in your life?</string>
+	<string name="update_status">Set Status</string>
+	<string name="attach_photo">Attach Photo</string>
+	<string name="success_status">Status Updated</string>
+	<string name="status_error">Something went wrong! Please try again.</string>
+	<string name="img_select">Image selected for upload</string>
+	<string name="logging">Logging you in..</string>
+	<string name="status_hint_photo">Say something about this photo.</string>
+	<string name="mood">Mood</string>
+	<string name="mood_hint">Describe your feelings.</string>
+	<string name="question_hint">Ask your question here.</string>
+	<string name="options_normal">Options</string>
+	<string name="options"><u>Options</u></string>
+	<string name="add_options">Add Option</string>
+	<string name="ask">Ask</string>
+	<string name="delete">Delete</string>
+	<string name="success_question">Question Asked</string>
+	<string name="go">Go to profile</string>
+	<string name="name">Name:</string>
+	<string name="gender">Gender:</string>
+	<string name="male">Male</string>
+	<string name="female">Female</string>
+	<string name="birth">Birthday:</string>
+	<string name="forward">Continue</string>
+	<string name="date_hint">dd/mm/yyyy</string>
+	<string name="password_signup">Password:</string>
+	<string name="welcome_msg">"Hi,\n\nWelcome to Quipmate family\nPlease enter the details."</string>
+	<string name="pass_hint">min 6 characters long</string>
+	<string name="hint_wrong">invalid field</string>
+	<string name="selectdate">Select a date</string>
+	<string name="reg">REGISTER</string>
+	<string name="logme">Already registred. Login Me!</string>
+	<string name="album_name">Quipmate</string>
+	<string name="send">Send</string>
+	<string name="video">Attach Video</string>
+	 
+    <string-array name="navigation_titles">
+        <item >Home</item>
+        <item >Notifications</item>
+        <item >Conversations</item>
+        <item >Co-workers</item>
+        <item >Share </item> 
+        <item >Ask Question</item>
+        <item >Upcoming Events</item>
+        <item >Files</item>
+        <item >Logout</item>
+        <item >News Feed</item>
+    </string-array>
+    
+    <string-array name="navigation_icons">
+        <item >@drawable/ic_home</item>
+        <item >@drawable/ic_popup_reminder</item>
+        <item >@drawable/ic_msg</item>
+        <item >@drawable/ic_people</item>
+        <item >@drawable/ic_status</item>
+        <item >@drawable/ic_question</item>
+        <item >@drawable/ic_events</item>
+        <item >@drawable/ic_photos</item>
+        <item >@drawable/ic_logout</item>
+    </string-array>
+    
+    <string-array name="moods">
+        <item >Angry</item>
+        <item >Big Smile</item>
+        <item >Chatty</item>
+        <item >Dangerous</item>
+        <item >Devil</item>
+        <item >Doubtful</item>
+        <item >Dribbling</item>
+        <item >Exhausted</item>
+        <item >Feared</item>
+        <item >Foxy Lady</item>
+        <item >Green Bug</item>
+        <item >Happy</item>
+        <item >Hell Boy</item>
+        <item >Hey Baby</item>
+        <item >Kiss me</item>
+        <item >Naughty</item>
+        <item >Ohhhhh</item>
+        <item >Playing in money</item>
+        <item >Rapper</item>
+        <item >Sad</item>
+        <item >Shameful</item>
+        <item >Smiling</item>
+        <item >Speaking</item>
+        <item >Surprised</item>
+        <item >Surrender</item>
+        <item >Sweet Kiss</item>
+        <item >Teasing</item>
+        <item >Terrorist</item>
+        
+    </string-array>
+    
+    <string-array name="mood_icons">
+        <item >@drawable/angry</item>
+        <item >@drawable/big_smile</item>
+        <item >@drawable/chatty</item>
+        <item >@drawable/dangerous</item>
+        <item >@drawable/devil</item>
+        <item >@drawable/doubtful</item>
+        <item >@drawable/dribbling</item>
+        <item >@drawable/exhausted</item>
+        <item >@drawable/feared</item>
+        <item >@drawable/foxy_lady</item>
+        <item >@drawable/green_bug</item>
+        <item >@drawable/happy</item>
+        <item >@drawable/hell_boy</item>
+        <item >@drawable/hey_baby</item>
+        <item >@drawable/kiss_me</item>
+        <item >@drawable/naughty</item>
+        <item >@drawable/ohhhhh</item>
+        <item >@drawable/playing_in_money</item>
+        <item >@drawable/rapper</item>
+        <item >@drawable/sad</item>
+        <item >@drawable/shameful</item>
+        <item >@drawable/smile</item>
+        <item >@drawable/speaking</item>
+        <item >@drawable/surprised</item>
+        <item >@drawable/surrender</item>
+        <item >@drawable/sweet_kiss</item>
+        <item >@drawable/teasing</item>
+        <item >@drawable/terrorist</item>
+    </string-array>
+    
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+     >
+
+    <ImageView
+        android:id="@+id/event_pimage"
+        android:layout_width="@dimen/thumbnail_width"
+        android:layout_height="@dimen/thumbnail_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/loading_image"
+        android:contentDescription="@string/pimage"
+        />
+     
+
+    <TextView
+        android:id="@+id/event_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/event_pimage"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/event_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/event_profile_name"
+        android:layout_below="@+id/event_profile_name"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/iv_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/event_profile_name"
+        android:src="@drawable/ic_btn_search_go"
+        android:contentDescription="@string/go" />
+
+</RelativeLayout>

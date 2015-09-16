@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/tvChatTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:background="#003153"
+        android:padding="8dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/svFiendList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvChatTitle"
+        android:background="#dddddd"
+        android:padding="5dp"
+        android:paddingTop="35dp" >
+
+        <LinearLayout
+            android:id="@+id/llMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="45dp"
+             >
+        </LinearLayout>
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/etChatBox"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#ffffff"        
+        android:layout_alignParentRight="true"
+        android:hint="Type Here" 
+        android:padding="10dp"       
+        android:ems="10">
+                <requestFocus />  
+            </EditText>
+
+</RelativeLayout>

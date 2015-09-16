@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/llPost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/ivPimage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_launcher"
+            android:contentDescription="This is image of poster" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/llPostRHS"
+            android:layout_toRightOf="@+id/ivPimage"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <RelativeLayout
+                android:id="@+id/llContent"
+                android:layout_width="248dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.95"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="TextName" />
+                
+                <ImageView
+                    android:id="@+id/ivContent1"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_below="@+id/tvContent"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_launcher"
+                    android:contentDescription="This is image of poster" />
+
+                <TextView
+                    android:id="@+id/tvFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="36dp"
+                    android:layout_toRightOf="@+id/ivContent1"
+                    android:text="Text File" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                
+                 <TextView
+                    android:id="@+id/tvExciting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Exciting" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="two minutes ago" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llResponse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Count of Response" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llCommentList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/llComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/etComment"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/btnCommentPost"
+                android:background="@color/light_grey"
+                android:hint="Add a comment"
+                android:text="" />
+
+            <Button
+                android:id="@+id/btnCommentPost"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="Post" />
+
+        </RelativeLayout> 
+    </LinearLayout>
+  </RelativeLayout> 
+</ScrollView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="TAG_PROFILEID" type="id"/>
+    <item name="TAG_NAME" type="id"/>
+    <item name="TAG_PIMAGE" type="id"/>
+</resources>

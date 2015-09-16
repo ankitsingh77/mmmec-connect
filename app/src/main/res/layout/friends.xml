@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/llFriendTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:background="#003153"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/ivTitleOnlineIcon"
+            android:layout_width="@dimen/dimen20"
+            android:layout_height="@dimen/dimen20"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/online" />
+
+        <TextView
+            android:id="@+id/tvFriendTitle"
+            android:layout_width="fill_parent"
+            android:background="#003153"
+            android:text="Friends Online"
+            android:layout_height="fill_parent"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/svFiendList"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llFriendTitle"
+        android:padding="5dp" >
+    </ScrollView>
+
+</RelativeLayout>

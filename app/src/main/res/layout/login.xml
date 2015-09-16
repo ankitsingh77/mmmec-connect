@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="@dimen/padding_tiny" >
+
+    <EditText
+        android:id="@+id/etemail"
+        android:layout_width="@dimen/width260"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivlogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/login_box"
+        android:drawableLeft="@drawable/email"
+        android:drawablePadding="@dimen/padding_small"
+        android:ems="10"
+        android:hint="@string/email"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/text_size_small" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etpassword"
+        android:layout_width="@dimen/width260"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etemail"
+        android:layout_below="@+id/etemail"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/login_box"
+        android:drawableLeft="@drawable/password"
+        android:drawablePadding="@dimen/margin_small"
+        android:ems="10"
+        android:hint="@string/password"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textPassword"
+        android:textSize="@dimen/text_size_small" >
+    </EditText>
+
+    <ImageView
+        android:id="@+id/ivlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/signup"
+        android:layout_alignRight="@+id/tvtitle"
+        android:layout_below="@+id/tvtitle"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:contentDescription="@string/quipmate_image"
+        android:src="@drawable/quipmate_logo" /> 
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/blogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/errormessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/signup"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/blogin"
+        android:layout_width="@dimen/width260"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etpassword"
+        android:layout_below="@+id/etpassword"
+        android:background="@drawable/login_button"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold" />
+
+</RelativeLayout>

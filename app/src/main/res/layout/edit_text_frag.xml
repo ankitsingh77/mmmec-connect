@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/light_grey" >
+    
+<EditText android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:id="@+id/et_ms"
+    android:inputType="text"/>
+
+<Button android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/bt_send_msg"
+    android:text="@string/send"
+    android:background="@drawable/login_button"
+    android:textColor="@color/white"
+    android:textStyle="bold"/>
+</LinearLayout>
