@@ -62,16 +62,7 @@ public class NotifsAdapter extends BaseAdapter {
 			notifviewholder = (NotifViewHolder) view.getTag();
 		}
 		
-		final NotificationInfo notif = notifList.get(position);
-		if(notif != null){
-			imgDownloader.DisplayImage(notif.actionBy.getImageURL(),notifviewholder.notifImage);
-			String name=notif.actionBy.getName();
-			notifviewholder.notifDesc.setText(name+" "+CommonMethods.getNotifDesc(notif.actionType));
-			
-			String time=CommonMethods.getTime(Long.parseLong(notif.time));
-						
-			notifviewholder.notifTime.setText(time);
-		}
+
 		return view;
 	}
 	

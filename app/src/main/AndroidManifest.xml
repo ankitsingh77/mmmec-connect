@@ -30,11 +30,6 @@
         </receiver>
 
         <activity
-            android:name="com.quipmate2.features.NewsFeed"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="com.quipmate2.features.Login"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
@@ -87,21 +82,6 @@
         </activity>
         <activity
             android:name="com.quipmate2.features.SearchFriend"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.quipmate2.features.StatusUpdate"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.quipmate2.features.MoodSelect"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.quipmate2.features.AskQuestion"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
         </activity>
