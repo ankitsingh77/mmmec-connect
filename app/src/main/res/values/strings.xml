@@ -66,16 +66,8 @@
 	<string name="video">Attach Video</string>
 	 
     <string-array name="navigation_titles">
-        <item >Home</item>
-        <item >Notifications</item>
-        <item >Conversations</item>
-        <item >Co-workers</item>
-        <item >Share </item> 
-        <item >Ask Question</item>
-        <item >Upcoming Events</item>
-        <item >Files</item>
-        <item >Logout</item>
-        <item >News Feed</item>
+        <item >Messages</item>
+        <item >Malaviyans</item>
     </string-array>
     
     <string-array name="navigation_icons">

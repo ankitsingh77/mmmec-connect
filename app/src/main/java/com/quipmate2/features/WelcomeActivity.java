@@ -161,59 +161,16 @@ public class WelcomeActivity extends FragmentActivity {
 	private void displayItem(int position) {
 		try {
 			
-			if (position == 1) {
-				Intent notifs = new Intent(this, Notifications.class);
-				startActivity(notifs);
-			}
-			else if (position == 2) {
+
+			if (position == 0) {
 				Intent msgs = new Intent(WelcomeActivity.this,
 				MessagesRecent.class);
 				startActivity(msgs);
 			} 
-			else if (position == 3) {
+			else if (position == 1) {
 				Intent msgs = new Intent(WelcomeActivity.this,
 				CoWorkers.class);
 				startActivity(msgs);
-			}else if (position == 10) {
-				Intent msg = new Intent(this, MessageActivity.class);
-				startActivity(msg);
-			} else if (position == 4) {
-				Intent status = new Intent(WelcomeActivity.this,
-						StatusUpdate.class);
-				startActivity(status);
-			} else if (position == 5) {
-				Intent question = new Intent(WelcomeActivity.this,
-						AskQuestion.class);
-				startActivity(question);
-			} else if (position == 8) {
-				Intent msg = new Intent(WelcomeActivity.this, Logout.class);
-				startActivity(msg);
-				finish();
-			} if (position == 9) {
-				Intent notifs = new Intent(this, NewsFeed.class);
-				startActivity(notifs);
-			} 
-			else {
-
-				Fragment fragment = null;
-				switch (position) {
-				case 6:
-					fragment = new EventFragment();
-					mTitle = "Upcoming Events";
-					break;
-
-				default:
-					fragment = new NewFragment();
-				}
-
-				Bundle bundle = new Bundle();
-				bundle.putInt("Image", arraylist.get(position).icon);
-				bundle.putString("Text", arraylist.get(position).name);
-				fragment.setArguments(bundle);
-
-				FragmentManager fragmentManager = getFragmentManager();
-				fragmentManager.beginTransaction()
-						.replace(R.id.frame_container, fragment).commit();
 			}
 
 			// close the navigation drawer
