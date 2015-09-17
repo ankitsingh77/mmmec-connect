@@ -2,6 +2,7 @@
 *.apk
 *.ap_
 .idea/*
+mmmec-connect.iml
 
 # Files for the Dalvik VM
 *.dex
