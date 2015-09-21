@@ -164,7 +164,7 @@ public class WelcomeActivity extends FragmentActivity {
 
 			if (position == 0) {
 				Intent msgs = new Intent(WelcomeActivity.this,
-				MessagesRecent.class);
+				Message.class);
 				startActivity(msgs);
 			} 
 			else if (position == 1) {

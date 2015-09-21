@@ -273,7 +273,7 @@ public class Login extends Activity implements OnClickListener {
 								
 								if (session.commit()) 
 								{
-									startService(new Intent(Login.this,RealTimeService.class));
+									//startService(new Intent(Login.this,RealTimeService.class));
 									startService(new Intent(Login.this,ChatService.class));	
 									Intent intent = new Intent(Login.this, WelcomeActivity.class);
 									startActivity(intent);

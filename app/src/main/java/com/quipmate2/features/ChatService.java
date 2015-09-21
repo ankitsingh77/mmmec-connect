@@ -49,7 +49,7 @@ public class ChatService extends Service {
 	private HttpPost post;
 	private HttpResponse rChatUpdate;
 	private int status;
-	private String url = "http://www.quipmate.com/chat/chat_update", data="Sample Data";
+	private String url = "http://www.quipmate.com/chat/group_chat_update", data="Sample Data";
 	private String last_chat_time;
 	LocalBroadcastManager broadcaster ;
 	public ChatUpdate chatupdate;
@@ -125,10 +125,12 @@ public class ChatService extends Service {
 			if (NetworkHelper.checkNetworkConnection(ChatService.this)) {
 				
 				apiParams = new ArrayList<NameValuePair>();
-				apiParams.add(new BasicNameValuePair(AppProperties.DATABASE, session.getValue(AppProperties.DATABASE)));
+			//	apiParams.add(new BasicNameValuePair(AppProperties.DATABASE, session.getValue(AppProperties.DATABASE)));
 				apiParams.add(new BasicNameValuePair("profileid", session.getValue(AppProperties.PROFILE_ID)));  
 				apiParams.add(new BasicNameValuePair("random", rand.nextInt(1000000000)+""));
 				apiParams.add(new BasicNameValuePair("last_chat_time", last_chat_time));
+                apiParams.add(new BasicNameValuePair("auth",session.getValue(AppProperties.PROFILE_ID)));
+				apiParams.add(new BasicNameValuePair("database","mmmut"));
 				Log.e("Chat Update Parameters", apiParams.toString());
 				
 				

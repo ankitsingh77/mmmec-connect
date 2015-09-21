@@ -72,9 +72,9 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 	private HttpGet get;
 	private HttpResponse rChatUpdate;
 	private int status;
-	private String url = "http://www.quipmate.com/chat/chat_new";
+	private String url = "http://www.quipmate.com/chat/group_chat_new";
 	private String URL = AppProperties.URL,photo=null;
-	String msg="WOW", userid="1000000002";
+	String msg="WOW", userid="1000";
 	Drawable d;
 	private String last_chat_time="1409486777901";
 	LocalBroadcastManager broadcaster ;
@@ -110,8 +110,7 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 		setContentView(R.layout.window); 
 		Intent intent = getIntent(); 
 		Bundle idata = intent.getExtras();
-		userid = idata.getString("friendId");
-		title = idata.getString("friendName");
+		title = "MALAVIYAN CONNECT";
 		scrllPrev = (ScrollView) findViewById(R.id.scrllPrev);
 		llPrev = (LinearLayout)findViewById(R.id.llPrev);
 		et_msg = (EditText)findViewById(R.id.et_msg);
@@ -245,10 +244,9 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
 		Bundle idata = intent.getExtras();
-		userid = idata.getString("friendId");
+		userid = "1000000122";
 		Log.e("new Intent","ON NEW INTENTNTNTNNTNTNNTNTNTNTNTNTNTNTNTNTNTNNTNTNTNTNTNTNTNTNTNTNTNTNTNTNNT");
-		userid = idata.getString("friendId");
-		title = idata.getString("friendName");
+		title = "KUNAL SINGH";
 		llPrev.removeAllViews();
 		new fetchMsgFriend().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
@@ -310,7 +308,6 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 				try{
 						
 						apiParams = new ArrayList<NameValuePair>();
-						apiParams.add(new BasicNameValuePair(AppProperties.DATABASE, session.getValue(AppProperties.DATABASE)));
 						apiParams.add(new BasicNameValuePair("profileid", session.getValue(AppProperties.PROFILE_ID)));  
 						apiParams.add(new BasicNameValuePair("chat_sent_time", last_chat_time));
 						apiParams.add(new BasicNameValuePair("userid", userid));
@@ -319,6 +316,7 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 						apiParams.add(new BasicNameValuePair("photo", session.getValue(AppProperties.MY_PROFILE_PIC)));
 						apiParams.add(new BasicNameValuePair("auth", session.getValue(AppProperties.PROFILE_ID)));
 						apiParams.add(new BasicNameValuePair("PHPSESSID", session.getValue(AppProperties.SESSION_ID)));
+					    apiParams.add(new BasicNameValuePair("database","mmmut"));
 						Log.e("Chat NEW Parameters", apiParams.toString());
 						
 						Log.e("url", url);
@@ -373,10 +371,11 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 		protected Void doInBackground(Void... params) {
 					
 			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
-			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "message_fetch"));
-			apiParams.add(new BasicNameValuePair(AppProperties.PROFILE_ID, userid));
+			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "group_chat_fetch"));
+			//apiParams.add(new BasicNameValuePair(AppProperties.PROFILE_ID, userid));
 			apiParams.add(new BasicNameValuePair("auth", session.getValue(AppProperties.PROFILE_ID)));
-			apiParams.add(new BasicNameValuePair("start", start)); 
+			apiParams.add(new BasicNameValuePair("start", start));
+			apiParams.add(new BasicNameValuePair("database","mmmut"));
 			Log.e("Previous Chat Parameters", apiParams.toString());
 			try{ 
 				adata = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);		
@@ -416,9 +415,6 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 							co = new JSONObject(b);
 							actionby = co.getString("actionby");
 							message = co.getString("message");
-							
-							
-							 
 							cn = new JSONObject(p); 
 							
 							photo = cn.getString(userid);

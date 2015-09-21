@@ -77,9 +77,10 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 		protected Void doInBackground(Void... params) {
 					
 			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
-			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "people_fetch"));
+			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_fetch"));
 			apiParams.add(new BasicNameValuePair("new_user", "new_user"));
 			apiParams.add(new BasicNameValuePair("auth", session.getValue(AppProperties.PROFILE_ID)));
+			apiParams.add(new BasicNameValuePair("","mmmut"));
 			
 			apiParams.add(new BasicNameValuePair("start", start+"")); 
 			Log.e("Previous Chat Parameters", apiParams.toString());

@@ -9,6 +9,7 @@ public class AppProperties {
 	public static final String DEV_URL = "http://www.quipmate.com/ajax/write.php";
 	public static final String URL = PROD_URL;
 	public static final String DATABASE = "database";
+	public static final	String ALUMNIDB = "mmmut";
 	public static final String PDF_ICON = "http://372a66a66bee4b5f4c15-ab04d5978fd374d95bde5ab402b5a60b.ssl.cf2.rackcdn.com/pdf.ico";
 
 	public static final String PARAM_EMAIL = "email";
