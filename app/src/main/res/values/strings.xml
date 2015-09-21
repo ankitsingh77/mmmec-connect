@@ -7,10 +7,11 @@
     <string name="logout">Logout</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="mobile">Mobile(10 digits)</string>
     <string name="login">Login</string> 
     <string name="code_got">Already have the code? <u>Click here!</u></string>
-    <string name="signup_code_desc">Enter your email and a 4 digit code will be send to your email address.</string>
-    <string name="enter_your_email">Enter Your Email Address</string>
+    <string name="signup_code_desc">Enter your mobile number and a 4 digit code will be send to your email address available in Malaviyan Database.</string>
+    <string name="enter_your_email">Enter Your Mobile number</string>
     <string name="signup_email">Sign Up</string>
     <string name="signup"><u>Sign Up for Quipmate</u></string>
     <string name="quipmate_image">Quipmate Image</string>

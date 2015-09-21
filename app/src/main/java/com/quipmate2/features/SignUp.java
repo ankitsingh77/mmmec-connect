@@ -37,14 +37,14 @@ public class SignUp extends Activity implements OnClickListener {
 	private JSONArray result;
 	private JSONObject data;
 	private Session signup;
-	private String code,email;
+	private String code,mobile;
 	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		getActionBar().setTitle("Sign Up");
+		getActionBar().setTitle("Malaviyan Login");
 		setContentView(R.layout.signup);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -86,8 +86,8 @@ public class SignUp extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if(v.getId() == R.id.blogin_signup){
 			
-		 email = etemail.getText().toString().trim();
-		if(email !=null){
+		 mobile = etemail.getText().toString().trim();
+		if(mobile !=null){
 			
 			new sendEmail().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		}
@@ -147,8 +147,8 @@ public class SignUp extends Activity implements OnClickListener {
 			try{
 			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
 			
-			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "self_invite_mobile"));
-			apiParams.add(new BasicNameValuePair("email", email));
+			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_litmus_test"));
+			apiParams.add(new BasicNameValuePair("mobile", mobile));
 			
 			result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
 			if(result != null){
@@ -172,11 +172,8 @@ public class SignUp extends Activity implements OnClickListener {
 			try{
 				Log.e("Code", data.toString());
 			if(data != null && data.has(AppProperties.ACK)){
-				code = data.getString("code");
-				
 				//save the code and email if user wishes to validate the code later.
-				signup.setValue("user_email_signup", email);
-				signup.setValue("code", code);
+				signup.setValue("user_email_signup", mobile);
 				signup.commit();
 				System.out.println(code);
 				CommonMethods.ShowInfo(SignUp.this, "A 4 digit code has been sent to your email").show();
@@ -185,8 +182,8 @@ public class SignUp extends Activity implements OnClickListener {
 				CommonMethods.ShowInfo(SignUp.this, "Something went wrong. Please try again.").show();
 			}
 		}
-			catch(JSONException e){
-				
+			catch(Exception e){
+				System.out.println(e);
 			}
 		}
 	}

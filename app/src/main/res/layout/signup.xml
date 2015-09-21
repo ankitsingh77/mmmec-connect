@@ -16,7 +16,7 @@
         android:drawableLeft="@drawable/email"
         android:drawablePadding="@dimen/padding_small"
         android:ems="10"
-        android:hint="@string/email"
+        android:hint="@string/mobile"
         android:imeOptions="flagNoExtractUi"
         android:inputType="textEmailAddress"
         android:textSize="@dimen/text_size_small" >
