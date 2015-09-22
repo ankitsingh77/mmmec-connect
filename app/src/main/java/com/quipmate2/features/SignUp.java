@@ -52,12 +52,6 @@ public class SignUp extends Activity implements OnClickListener {
 		etemail = (EditText) findViewById(R.id.etemail_signup);
 		btsignup = (Button) findViewById(R.id.blogin_signup);
 		codehave = (TextView) findViewById(R.id.code_got);
-		
-		if(signup.hasKey("code"))
-		code = signup.getValue("code");
-		else
-			code = null;
-		
 		btsignup.setOnClickListener(this);
 		codehave.setOnClickListener(this);
 	}
@@ -113,19 +107,70 @@ public class SignUp extends Activity implements OnClickListener {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
-							String inputcode = input.getText().toString();
-							if(inputcode.equals(code)){
-								Intent details = new Intent(SignUp.this,EnterDetailsSignup.class);
-								startActivity(details);
-								finish();
-							}
-							else{
-								Toast.makeText(SignUp.this,"Wrong Code", Toast.LENGTH_LONG).show();
-							}
+							code = input.getText().toString();
+							new verifyCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 						}
 					});
 			codeDialog.show();
 			
+		}
+	}
+
+	class verifyCode extends AsyncTask<Void, Void, Void>{
+
+		ProgressDialog pdialog;
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			pdialog = new ProgressDialog(SignUp.this);
+			pdialog.setMessage("Verifying the code");
+			pdialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try{
+				List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
+
+				apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_login"));
+				apiParams.add(new BasicNameValuePair("mobile", mobile));
+				apiParams.add(new BasicNameValuePair("code", code));
+
+				result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
+				if(result != null){
+					data = result.getJSONObject(0);
+					System.out.println(data);
+				}
+			}
+			catch(JSONException e){
+				e.printStackTrace();
+			}
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+
+			if(pdialog.isShowing())
+				pdialog.dismiss();
+
+			try{
+				Log.e("Code", data.toString());
+				if(data != null && data.has(AppProperties.ACK)){
+					Intent details = new Intent(SignUp.this,EnterDetailsSignup.class);
+					startActivity(details);
+					finish();
+				}
+				else{
+					CommonMethods.ShowInfo(SignUp.this, "Wrong Code. Please try again.").show();
+				}
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
 		}
 	}
 	
