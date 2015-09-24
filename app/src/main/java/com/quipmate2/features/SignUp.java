@@ -38,7 +38,7 @@ public class SignUp extends Activity implements OnClickListener {
 	private JSONObject data;
 	private Session signup;
 	private String code,mobile;
-	
+	private Session session;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +153,7 @@ public class SignUp extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
+			session = new Session(SignUp.this);
 
 			if(pdialog.isShowing())
 				pdialog.dismiss();
@@ -160,9 +161,32 @@ public class SignUp extends Activity implements OnClickListener {
 			try{
 				Log.e("Code", data.toString());
 				if(data != null && data.has(AppProperties.ACK)){
-					Intent details = new Intent(SignUp.this,EnterDetailsSignup.class);
-					startActivity(details);
-					finish();
+
+					session.setValue(AppProperties.PARAM_EMAIL, data.getString(AppProperties.PARAM_EMAIL));
+					session.setValue(AppProperties.MY_PROFILE_NAME,
+							data.getString(AppProperties.MY_PROFILE_NAME));
+					session.setValue(AppProperties.MY_PROFILE_PIC,
+							data.getString(AppProperties.MY_PROFILE_PIC));
+					session.setValue(AppProperties.SESSION_ID,
+							data.getString(AppProperties.SESSION_ID));
+					session.setValue(AppProperties.PROFILE_ID,
+							data.getString(AppProperties.MY_PROFILE_ID));
+					session.setValue(AppProperties.SESSION_NAME,
+							data.getString(AppProperties.SESSION_NAME));
+					session.setValue(AppProperties.DATABASE,
+							data.getString(AppProperties.DATABASE));
+
+					if (session.commit())
+					{
+						startService(new Intent(SignUp.this,RealTimeService.class));
+						startService(new Intent(SignUp.this,ChatService.class));
+						Intent intent = new Intent(SignUp.this, WelcomeActivity.class);
+						startActivity(intent);
+						finish();
+					}
+					else{
+						CommonMethods.ShowInfo(SignUp.this, "Wrong Code. Please try again.").show();
+					}
 				}
 				else{
 					CommonMethods.ShowInfo(SignUp.this, "Wrong Code. Please try again.").show();
