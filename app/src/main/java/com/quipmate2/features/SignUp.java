@@ -165,7 +165,6 @@ public class SignUp extends Activity implements OnClickListener {
 				Log.e("Code", data.toString());
 				if (data != null && data.has(AppProperties.ACK)) {
 
-					session.setValue(AppProperties.PARAM_EMAIL, data.getString(AppProperties.PARAM_EMAIL));
 					session.setValue(AppProperties.MY_PROFILE_NAME,
 							data.getString(AppProperties.MY_PROFILE_NAME));
 					session.setValue(AppProperties.MY_PROFILE_PIC,
