@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class SignUp extends Activity implements OnClickListener {
 	private Session signup;
 	private String code,mobile;
 	private Session session;
+	private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,14 +155,15 @@ public class SignUp extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
+			progressBar = (ProgressBar) findViewById(R.id.progressbar);
 			session = new Session(SignUp.this);
 
 			if(pdialog.isShowing())
 				pdialog.dismiss();
 
-			try{
+			try {
 				Log.e("Code", data.toString());
-				if(data != null && data.has(AppProperties.ACK)){
+				if (data != null && data.has(AppProperties.ACK)) {
 
 					session.setValue(AppProperties.PARAM_EMAIL, data.getString(AppProperties.PARAM_EMAIL));
 					session.setValue(AppProperties.MY_PROFILE_NAME,
@@ -176,20 +179,35 @@ public class SignUp extends Activity implements OnClickListener {
 					session.setValue(AppProperties.DATABASE,
 							data.getString(AppProperties.DATABASE));
 
-					if (session.commit())
-					{
-						startService(new Intent(SignUp.this,RealTimeService.class));
-						startService(new Intent(SignUp.this,ChatService.class));
+					if (session.commit()) {
+						startService(new Intent(SignUp.this, RealTimeService.class));
+						startService(new Intent(SignUp.this, ChatService.class));
 						Intent intent = new Intent(SignUp.this, WelcomeActivity.class);
 						startActivity(intent);
 						finish();
+					} else {
+						CommonMethods.ShowInfo(SignUp.this, "Some problem in Login. Please try again.").show();
 					}
-					else{
-						CommonMethods.ShowInfo(SignUp.this, "Wrong Code. Please try again.").show();
+				} else if (data.has(getString(R.string.error))) {
+
+					JSONObject error = data
+							.getJSONObject(getString(R.string.error));
+					if (error.getString(getString(R.string.code)).equals(
+							AppProperties.WRONG_CREDENTIAL_CODE)) {
+						runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								progressBar.setVisibility(View.INVISIBLE);
+								CommonMethods.ShowInfo(SignUp.this,
+										getString(R.string.invalid_credential))
+										.show();
+							}
+						});
+
 					}
-				}
-				else{
-					CommonMethods.ShowInfo(SignUp.this, "Wrong Code. Please try again.").show();
+
 				}
 			}
 			catch(Exception e){
