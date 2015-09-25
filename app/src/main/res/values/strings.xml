@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Quipmate</string>
+    <string name="app_name">Malaviyan Messenger</string>
     <string name="menu_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="logout">Logout</string>
@@ -13,7 +13,7 @@
     <string name="signup_code_desc">Enter your mobile number and a 4 digit code will be send to your email address available in Malaviyan Database.</string>
     <string name="enter_your_email">Enter Your Mobile number</string>
     <string name="signup_email">Sign Up</string>
-    <string name="signup"><u>Sign Up for Quipmate</u></string>
+    <string name="signup"><u>Registration - Malaviyan Database</u></string>
     <string name="quipmate_image">Quipmate Image</string>
     <string name="OK">OK</string>
     <string name="network_error">Connect your device to internet to continue.</string>
@@ -56,13 +56,13 @@
 	<string name="forward">Continue</string>
 	<string name="date_hint">dd/mm/yyyy</string>
 	<string name="password_signup">Password:</string>
-	<string name="welcome_msg">"Hi,\n\nWelcome to Quipmate family\nPlease enter the details."</string>
+	<string name="welcome_msg">"Hi,\n\nWelcome to Malaviya family\nPlease enter the details."</string>
 	<string name="pass_hint">min 6 characters long</string>
 	<string name="hint_wrong">invalid field</string>
 	<string name="selectdate">Select a date</string>
 	<string name="reg">REGISTER</string>
 	<string name="logme">Already registred. Login Me!</string>
-	<string name="album_name">Quipmate</string>
+	<string name="album_name">Malaviyan Messenger</string>
 	<string name="send">Send</string>
 	<string name="video">Attach Video</string>
 	 

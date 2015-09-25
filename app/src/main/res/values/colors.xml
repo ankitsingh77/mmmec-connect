@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFF</color>
-    <color name="background">#003153</color>
+    <color name="background">#bbbbbb</color>
     <color name="blue_backgroung_selected">#264768</color>
     <color name="border_color">#bcc1cc</color>
     <color name="button_background">#336699</color>
