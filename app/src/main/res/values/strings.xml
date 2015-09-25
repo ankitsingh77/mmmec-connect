@@ -70,7 +70,6 @@
         <item >Messages</item>
         <item >Malaviyans</item>
     </string-array>
-    
     <string-array name="navigation_icons">
         <item >@drawable/ic_home</item>
         <item >@drawable/ic_popup_reminder</item>
@@ -82,68 +81,4 @@
         <item >@drawable/ic_photos</item>
         <item >@drawable/ic_logout</item>
     </string-array>
-    
-    <string-array name="moods">
-        <item >Angry</item>
-        <item >Big Smile</item>
-        <item >Chatty</item>
-        <item >Dangerous</item>
-        <item >Devil</item>
-        <item >Doubtful</item>
-        <item >Dribbling</item>
-        <item >Exhausted</item>
-        <item >Feared</item>
-        <item >Foxy Lady</item>
-        <item >Green Bug</item>
-        <item >Happy</item>
-        <item >Hell Boy</item>
-        <item >Hey Baby</item>
-        <item >Kiss me</item>
-        <item >Naughty</item>
-        <item >Ohhhhh</item>
-        <item >Playing in money</item>
-        <item >Rapper</item>
-        <item >Sad</item>
-        <item >Shameful</item>
-        <item >Smiling</item>
-        <item >Speaking</item>
-        <item >Surprised</item>
-        <item >Surrender</item>
-        <item >Sweet Kiss</item>
-        <item >Teasing</item>
-        <item >Terrorist</item>
-        
-    </string-array>
-    
-    <string-array name="mood_icons">
-        <item >@drawable/angry</item>
-        <item >@drawable/big_smile</item>
-        <item >@drawable/chatty</item>
-        <item >@drawable/dangerous</item>
-        <item >@drawable/devil</item>
-        <item >@drawable/doubtful</item>
-        <item >@drawable/dribbling</item>
-        <item >@drawable/exhausted</item>
-        <item >@drawable/feared</item>
-        <item >@drawable/foxy_lady</item>
-        <item >@drawable/green_bug</item>
-        <item >@drawable/happy</item>
-        <item >@drawable/hell_boy</item>
-        <item >@drawable/hey_baby</item>
-        <item >@drawable/kiss_me</item>
-        <item >@drawable/naughty</item>
-        <item >@drawable/ohhhhh</item>
-        <item >@drawable/playing_in_money</item>
-        <item >@drawable/rapper</item>
-        <item >@drawable/sad</item>
-        <item >@drawable/shameful</item>
-        <item >@drawable/smile</item>
-        <item >@drawable/speaking</item>
-        <item >@drawable/surprised</item>
-        <item >@drawable/surrender</item>
-        <item >@drawable/sweet_kiss</item>
-        <item >@drawable/teasing</item>
-        <item >@drawable/terrorist</item>
-    </string-array>
-    
 </resources>
