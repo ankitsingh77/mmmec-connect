@@ -13,9 +13,8 @@ public class Logout extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Log.e("Deleting Session", "Delteging session");
+		Log.e("Deleting Session", "Delteting session");
 		Session session = new Session(getApplicationContext());
-		//session.delValue(AppProperties.PARAM_EMAIL);
 		session.delValue(AppProperties.PARAM_PASSWORD);
 		session.delValue(AppProperties.MY_PROFILE_ID);
 		session.delValue(AppProperties.MY_PROFILE_NAME);

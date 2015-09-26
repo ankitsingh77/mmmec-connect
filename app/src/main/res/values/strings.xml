@@ -10,7 +10,7 @@
     <string name="mobile">Mobile(10 digits)</string>
     <string name="login">Login</string> 
     <string name="code_got">Already have the code? <u>Click here!</u></string>
-    <string name="signup_code_desc">Enter the 4 digit code sent to your email address available in Malaviyan Database.</string>
+    <string name="verify_code_desc">Enter the 4 digit code sent to your email address available in Malaviyan Database.</string>
     <string name="enter_your_email">Enter Your Mobile number</string>
 	<string name="enter_code">Enter 4 digit Code</string>
     <string name="signup_email">Sign Up</string>
@@ -56,6 +56,7 @@
 	<string name="female">Female</string>
 	<string name="birth">Birthday:</string>
 	<string name="forward">Continue</string>
+	<string name="verify">Verify</string>
 	<string name="date_hint">dd/mm/yyyy</string>
 	<string name="password_signup">Password:</string>
 	<string name="welcome_msg">"Hi,\n\nWelcome to Malaviya family\nPlease enter the details."</string>

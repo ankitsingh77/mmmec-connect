@@ -59,7 +59,6 @@ public class Login extends Activity implements OnClickListener {
 		signup = new Session(Login.this);
 		etMobile = (EditText) findViewById(R.id.etemail_signup);
 		btsignup = (Button) findViewById(R.id.blogin_signup);
-		codehave = (TextView) findViewById(R.id.code_got);
 
 		session = new Session(getApplicationContext());
 
@@ -109,33 +108,6 @@ public class Login extends Activity implements OnClickListener {
 				signup.commit();
 				new sendEmail().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
-		}
-		else if(v.getId() == R.id.code_got){
-			AlertDialog.Builder codeDialog = new AlertDialog.Builder(this);
-			codeDialog.setTitle("VALIDATION");
-			codeDialog.setMessage("Enter the 4 digit code");
-			final EditText input = new EditText(this);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.MATCH_PARENT);
-              input.setLayoutParams(lp);
-              codeDialog.setView(input);
-              
-              codeDialog.setIcon(R.drawable.ic_status);
-              
-              codeDialog.setPositiveButton("OK", 
-            		  new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							code = input.getText().toString();
-							signup.setValue(AppProperties.CODE, code);
-							signup.commit();
-							new verifyCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-						}
-					});
-			codeDialog.show();
 		}
 	}
 
@@ -233,100 +205,6 @@ public class Login extends Activity implements OnClickListener {
 			}
 		}
 
-
-	class verifyCode extends AsyncTask<Void, Void, Void>{
-
-		ProgressDialog pdialog;
-
-		@Override
-		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-			pdialog = new ProgressDialog(Login.this);
-			pdialog.setMessage("Verifying the code");
-			pdialog.show();
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			try{
-				List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
-
-				apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_login"));
-				apiParams.add(new BasicNameValuePair("mobile", mobile));
-				apiParams.add(new BasicNameValuePair("code", code));
-
-				result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
-				if(result != null){
-					data = result.getJSONObject(0);
-				}
-			}
-			catch(JSONException e){
-				e.printStackTrace();
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			progressBar = (ProgressBar) findViewById(R.id.progressbar);
-			session = new Session(Login.this);
-
-			if(pdialog.isShowing())
-				pdialog.dismiss();
-
-			try {
-				if (data != null && data.has(AppProperties.ACK)) {
-					session.setValue(AppProperties.MY_PROFILE_NAME,
-							data.getString(AppProperties.MY_PROFILE_NAME));
-					session.setValue(AppProperties.MY_PROFILE_PIC,
-							data.getString(AppProperties.MY_PROFILE_PIC));
-					session.setValue(AppProperties.SESSION_ID,
-							data.getString(AppProperties.SESSION_ID));
-					session.setValue(AppProperties.PROFILE_ID,
-							data.getString(AppProperties.MY_PROFILE_ID));
-					session.setValue(AppProperties.SESSION_NAME,
-							data.getString(AppProperties.SESSION_NAME));
-					session.setValue(AppProperties.DATABASE,
-							data.getString(AppProperties.DATABASE));
-
-					if (session.commit()) {
-						startService(new Intent(Login.this, RealTimeService.class));
-						startService(new Intent(Login.this, ChatService.class));
-						Intent intent = new Intent(Login.this, WelcomeActivity.class);
-						startActivity(intent);
-						finish();
-					} else {
-						CommonMethods.ShowInfo(Login.this, "Some problem in Login. Please try again.").show();
-					}
-				} else if (data.has(getString(R.string.error))) {
-
-					JSONObject error = data
-							.getJSONObject(getString(R.string.error));
-					if (error.getString(getString(R.string.code)).equals(
-							AppProperties.WRONG_CREDENTIAL_CODE)) {
-						runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								progressBar.setVisibility(View.INVISIBLE);
-								CommonMethods.ShowInfo(Login.this,
-										getString(R.string.invalid_credential))
-										.show();
-							}
-						});
-
-					}
-
-				}
-			}
-			catch(Exception e){
-				Log.i("Exception", e.toString());
-			}
-		}
-	}
-	
 	class sendEmail extends AsyncTask<Void, Void, Void>{
 
 		ProgressDialog pdialog;
@@ -370,6 +248,11 @@ public class Login extends Activity implements OnClickListener {
 			try{
 			if(data != null && data.has(AppProperties.ACK)){
 				CommonMethods.ShowInfo(Login.this, "A 4 digit code has been sent to your email").show();
+				Intent intent = new Intent(Login.this, VerifyCode.class);
+				intent.putExtra(AppProperties.MOBILE, mobile);
+				startActivity(intent);
+				finish();
+
 			}
 			else{
 				CommonMethods.ShowInfo(Login.this, "Something went wrong. Please try again.").show();

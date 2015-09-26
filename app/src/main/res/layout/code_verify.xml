@@ -32,31 +32,29 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:background="@drawable/login_button"
-        android:text="@string/forward"
+        android:text="@string/verify"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium"
-        android:textStyle="bold" />
+        android:textSize="@dimen/text_size_medium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/verifyCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etemail_signup"
+        android:layout_above="@+id/etVerifyCode"
         android:layout_centerHorizontal="true"
-        android:layout_margintop="150dp"
-        android:text="@string/enter_code"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        />
+        android:layout_marginBottom="120dp"
+        android:text="@string/verify_code_desc"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/etVerifyCode"
-        android:layout_margintop="80dp"
-        android:text="@string/enter_your_email"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:layout_above="@+id/etVerifyCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="@string/email"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 
 </RelativeLayout>
