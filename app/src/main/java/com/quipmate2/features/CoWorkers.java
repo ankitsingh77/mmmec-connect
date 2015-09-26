@@ -39,7 +39,7 @@ import android.widget.TextView;
 
 public class CoWorkers extends Activity implements OnClickListener, OnTouchListener{
 	Session session;
-	String start = "0",title="Co-Workers",photo=null;
+	String start = "0",title="Malaviyans",photo=null;
 	JSONArray adata=null;
 	JSONArray result=null;
 	Drawable d;

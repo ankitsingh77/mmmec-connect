@@ -10,8 +10,9 @@
     <string name="mobile">Mobile(10 digits)</string>
     <string name="login">Login</string> 
     <string name="code_got">Already have the code? <u>Click here!</u></string>
-    <string name="signup_code_desc">Enter your mobile number and a 4 digit code will be send to your email address available in Malaviyan Database.</string>
+    <string name="signup_code_desc">Enter the 4 digit code sent to your email address available in Malaviyan Database.</string>
     <string name="enter_your_email">Enter Your Mobile number</string>
+	<string name="enter_code">Enter 4 digit Code</string>
     <string name="signup_email">Sign Up</string>
     <string name="signup"><u>Registration - Malaviyan Database</u></string>
     <string name="quipmate_image">Quipmate Image</string>
@@ -19,6 +20,7 @@
     <string name="network_error">Connect your device to internet to continue.</string>
     <string name="error">error</string>
     <string name="code">code</string>
+	<string name="verify_code">Enter 4 digit code</string>
     <string name="invalid_credential">Wrong email or password</string> 
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="action_settings">Settings</string>

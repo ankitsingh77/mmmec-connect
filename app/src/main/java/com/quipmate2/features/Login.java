@@ -8,6 +8,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.telephony.TelephonyManager;
+import android.provider.Settings.System;
 
 import com.example.quipmate2.R;
 import com.quipmate2.constants.AppProperties;
@@ -15,337 +17,367 @@ import com.quipmate2.utils.CommonMethods;
 import com.quipmate2.utils.NetworkHelper;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import java.io.Console;
 
 public class Login extends Activity implements OnClickListener {
-	private ProgressBar progressBar;
-	EditText etemail, etpassword;
-	private Button blogin;
-	Session session;
-	String email, password;
-	private JSONObject last;
-	private boolean isPressed = false;
+	private EditText etMobile;
+	private Button btsignup;
+	private TextView codehave;
 	private JSONArray result;
-	private TextView signup;
- 
-	@Override  
+	private JSONObject data;
+	private Session signup;
+	private String code,mobile;
+	private Session session;
+	private ProgressBar progressBar;
+	private String myImei, myMobile, device_unique_id;
+
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
-		session = new Session(Login.this);
-		if((session.hasKey(AppProperties.PARAM_PASSWORD) && !session.getValue(AppProperties.PARAM_PASSWORD).trim().equalsIgnoreCase("")))
+		getActionBar().setTitle("Malaviyan Login");
+		setContentView(R.layout.signup);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		signup = new Session(Login.this);
+		etMobile = (EditText) findViewById(R.id.etemail_signup);
+		btsignup = (Button) findViewById(R.id.blogin_signup);
+		codehave = (TextView) findViewById(R.id.code_got);
+
+		session = new Session(getApplicationContext());
+
+		if(session.hasKey(AppProperties.MOBILE) && session.hasKey(AppProperties.CODE))
 		{
 			Log.e("Redirecting", "Redirecting to Messages");
 			new AutoLogin().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		}else{
+			TelephonyManager tMgr = (TelephonyManager)getSystemService(getApplicationContext().TELEPHONY_SERVICE);
+			myMobile = tMgr.getLine1Number();
+			myImei = tMgr.getDeviceId();
+			device_unique_id = System.getString(this.getContentResolver(), System.ANDROID_ID);
+			session.setValue(AppProperties.IMEI, myImei);
+			session.setValue(AppProperties.MOBILE, myMobile);
+			session.setValue(AppProperties.DEVICE_UNIQUE_ID, device_unique_id);
+			etMobile.setText(myMobile);
 		}
-		else
-		{	
-			Log.e("No Redirecting", "Stay on login page");
-			setContentView(R.layout.login);
-			initView();
-			
-			//hide the keyboard
-			getWindow().setSoftInputMode(
-				      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-	
-			if (session.hasKey(AppProperties.PARAM_EMAIL)) {
-				etemail.setText(session.getValue(AppProperties.PARAM_EMAIL));
-			}
-			if (session.hasKey(AppProperties.PARAM_PASSWORD)) {
-				etpassword.setText(session.getValue(AppProperties.PARAM_PASSWORD));
-				
-			}
-		}
+		btsignup.setOnClickListener(this);
+		codehave.setOnClickListener(this);
 	}
-	private void initView() {
-		progressBar = (ProgressBar) findViewById(R.id.progressbar);
-		progressBar.setVisibility(View.INVISIBLE);
-		etemail = (EditText) findViewById(R.id.etemail);
-		etpassword = (EditText) findViewById(R.id.etpassword);
-		blogin = (Button) findViewById(R.id.blogin);
-		signup = (TextView) findViewById(R.id.signup);
-		blogin.setOnClickListener(this);
-		signup.setOnClickListener(this);
-	}
-
-	
 	
 	@Override
-	public void onClick(View v) {
-		if (isPressed) {
-			return;
-		}
-		isPressed = true;
-		if (v.getId() == R.id.blogin)
-		{
-			new AttempLogin().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-		}
-		else if(v.getId() == R.id.signup)
-		{
-			Intent signup = new Intent(this, SignUp.class);
-			startActivity(signup);
-		}
-		isPressed = false;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+			   finish();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+    	}
 	}
 
+	@Override
+	public void onBackPressed()
+	{
+		super.onBackPressed();
+		Log.e("Stay On SignUp Page", "Stay on SignUP page back Pressed");
+	}
+
+	@Override
+	public void onClick(View v) {
+		if(v.getId() == R.id.blogin_signup){
+			
+		 	mobile = etMobile.getText().toString().trim();
+			if(mobile !=null){
+				signup.setValue(AppProperties.MOBILE, mobile);
+				signup.commit();
+				new sendEmail().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			}
+		}
+		else if(v.getId() == R.id.code_got){
+			AlertDialog.Builder codeDialog = new AlertDialog.Builder(this);
+			codeDialog.setTitle("VALIDATION");
+			codeDialog.setMessage("Enter the 4 digit code");
+			final EditText input = new EditText(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.MATCH_PARENT);
+              input.setLayoutParams(lp);
+              codeDialog.setView(input);
+              
+              codeDialog.setIcon(R.drawable.ic_status);
+              
+              codeDialog.setPositiveButton("OK", 
+            		  new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							code = input.getText().toString();
+							signup.setValue(AppProperties.CODE, code);
+							signup.commit();
+							new verifyCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+						}
+					});
+			codeDialog.show();
+		}
+	}
 
 	public class AutoLogin extends AsyncTask<Void, Void, Void>
 	{
-		
+		ProgressDialog pdialog;
+
 		@Override
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
+			pdialog = new ProgressDialog(Login.this);
+			pdialog.setMessage("Signing in...");
+			pdialog.show();
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			//progressBar.setVisibility(View.VISIBLE);
+			try{
+				List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
 
-			session = new Session(getApplicationContext());
-			
-			System.out.println("Trying to auto login");
-			email = session.getValue("email");
-			password = session.getValue("password");
-
-			try {
-
-				if (NetworkHelper.checkNetworkConnection(Login.this)) {
-					List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
-					apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "login"));
-					apiParams.add(new BasicNameValuePair(AppProperties.PARAM_PASSWORD, password));
-					apiParams.add(new BasicNameValuePair(AppProperties.PARAM_EMAIL,email));
-					result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_POST, apiParams);
-					System.out.println(result);
-					if(result != null)
-					{
-						last = result.getJSONObject(0);
-						if (last != null) 
-						{
-							Log.e("Auto Login", last.toString());	
-							if (last.has(AppProperties.ACK) && last.getString(AppProperties.ACK).equals(AppProperties.ACK_CODE)) 
-							{
-								session.setValue(AppProperties.PARAM_EMAIL, email);
-								session.setValue(AppProperties.PARAM_PASSWORD, password);
-								session.setValue(AppProperties.MY_PROFILE_NAME, 
-										last.getString(AppProperties.MY_PROFILE_NAME));
-								session.setValue(AppProperties.MY_PROFILE_PIC,
-										last.getString(AppProperties.MY_PROFILE_PIC));
-								session.setValue(AppProperties.SESSION_ID,
-										last.getString(AppProperties.SESSION_ID));
-								session.setValue(AppProperties.PROFILE_ID,
-										last.getString(AppProperties.MY_PROFILE_ID));
-								session.setValue(AppProperties.SESSION_NAME,
-										last.getString(AppProperties.SESSION_NAME));
-								session.setValue(AppProperties.DATABASE, 
-										last.getString(AppProperties.DATABASE));
-								
-								if (session.commit()) 
-								{
-									startService(new Intent(Login.this,RealTimeService.class));
-									startService(new Intent(Login.this,ChatService.class));	
-	 
-									Intent intent = new Intent(Login.this, WelcomeActivity.class);
-									startActivity(intent);
-									finish();
-	
-								} else {
-									System.out.println("Some problem in Sigin. Please try again.");
-								}
-							} else if (last.has(getString(R.string.error))) {
-								
-								JSONObject error = last
-										.getJSONObject(getString(R.string.error));
-								if (error.getString(getString(R.string.code)).equals(
-										AppProperties.WRONG_CREDENTIAL_CODE)) {
-									runOnUiThread(new Runnable() {
-										
-										@Override
-										public void run() {
-											// TODO Auto-generated method stub
-											progressBar.setVisibility(View.INVISIBLE);
-											CommonMethods.ShowInfo(Login.this,
-													getString(R.string.invalid_credential))
-													.show();
-										}
-									});
-									
-								}
-							}
-						}
-						else
-						{
-							Log.e("Unable to login","Empty return by the API");
-						}
+				apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_login"));
+				apiParams.add(new BasicNameValuePair(AppProperties.MOBILE, session.getValue(AppProperties.MOBILE)));
+				apiParams.add(new BasicNameValuePair(AppProperties.CODE, session.getValue(AppProperties.CODE)));
+				apiParams.add(new BasicNameValuePair(AppProperties.IMEI, myImei));
+					result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
+					if(result != null){
+						data = result.getJSONObject(0);
+						Log.i("data", data.toString());
 					}
-					else
-					{
-						Log.e("Unable to login","Empty return by the API");
-					}
-				} 
-				else {
-					
-					runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() { 
-							// TODO Auto-generated method stub
-							progressBar.setVisibility(View.INVISIBLE);
-							CommonMethods.ShowInfo(Login.this,
-									getString(R.string.network_error)).show();
-						}
-					});
-					
 				}
-			} catch (JSONException e) {
-				// should not happen
-				e.printStackTrace();
+				catch(JSONException e){
+					e.printStackTrace();
+				}
+
+				return null;
 			}
 
-			return null;
-		}
-		
-		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
+			@Override
+			protected void onPostExecute(Void result) {
+				progressBar = (ProgressBar) findViewById(R.id.progressbar);
+				session = new Session(Login.this);
 
+				if(pdialog.isShowing())
+					pdialog.dismiss();
+
+				try {
+					Log.e("Code", data.toString());
+					if (data != null && data.has(AppProperties.ACK)) {
+						session.setValue(AppProperties.MY_PROFILE_NAME,
+								data.getString(AppProperties.MY_PROFILE_NAME));
+						session.setValue(AppProperties.MY_PROFILE_PIC,
+								data.getString(AppProperties.MY_PROFILE_PIC));
+						session.setValue(AppProperties.SESSION_ID,
+								data.getString(AppProperties.SESSION_ID));
+						session.setValue(AppProperties.PROFILE_ID,
+								data.getString(AppProperties.MY_PROFILE_ID));
+						session.setValue(AppProperties.SESSION_NAME,
+								data.getString(AppProperties.SESSION_NAME));
+						session.setValue(AppProperties.DATABASE,
+								data.getString(AppProperties.DATABASE));
+
+						if (session.commit()) {
+							startService(new Intent(Login.this, RealTimeService.class));
+							startService(new Intent(Login.this, ChatService.class));
+							Intent intent = new Intent(Login.this, WelcomeActivity.class);
+							startActivity(intent);
+							finish();
+						} else {
+							CommonMethods.ShowInfo(Login.this, "Some problem in Login. Please try again.").show();
+						}
+					} else if (data.has(getString(R.string.error))) {
+
+						JSONObject error = data
+								.getJSONObject(getString(R.string.error));
+						if (error.getString(getString(R.string.code)).equals(
+								AppProperties.WRONG_CREDENTIAL_CODE)) {
+							runOnUiThread(new Runnable() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									progressBar.setVisibility(View.INVISIBLE);
+									CommonMethods.ShowInfo(Login.this,
+											getString(R.string.invalid_credential))
+											.show();
+								}
+							});
+						}
+					}
+				}
+				catch(Exception e){
+					Log.i("Exception", e.toString());
+				}
+			}
 		}
-		
-	}
-	
-	public class AttempLogin extends AsyncTask<Void, Void, Void> 
-	{
+
+
+	class verifyCode extends AsyncTask<Void, Void, Void>{
+
+		ProgressDialog pdialog;
+
 		@Override
 		protected void onPreExecute() {
-			progressBar.setVisibility(View.VISIBLE);
+			// TODO Auto-generated method stub
+			pdialog = new ProgressDialog(Login.this);
+			pdialog.setMessage("Verifying the code");
+			pdialog.show();
 		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
+			try{
+				List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
 
-			System.out.println("Trying to log you in");
-			email = etemail.getText().toString();
-			password = etpassword.getText().toString();
+				apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_login"));
+				apiParams.add(new BasicNameValuePair("mobile", mobile));
+				apiParams.add(new BasicNameValuePair("code", code));
 
-			try {
-
-				if (NetworkHelper.checkNetworkConnection(Login.this)) 
-				{
-					List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
-					apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "login"));
-					apiParams.add(new BasicNameValuePair(AppProperties.PARAM_PASSWORD, password));
-					apiParams.add(new BasicNameValuePair(AppProperties.PARAM_EMAIL, email));
-					result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_POST, apiParams);
-					System.out.println(result);
-					if(result != null)
-					{
-						last = result.getJSONObject(0);
-						if (last != null) 
-						{
-							Log.e("Normal Login", last.toString());
-							if (last.has(AppProperties.ACK) && last.getString(AppProperties.ACK).equals(AppProperties.ACK_CODE)) 
-							{
-								session.setValue(AppProperties.PARAM_EMAIL, email);
-								session.setValue(AppProperties.PARAM_PASSWORD, password);
-								session.setValue(AppProperties.MY_PROFILE_NAME, 
-										last.getString(AppProperties.MY_PROFILE_NAME));
-								session.setValue(AppProperties.MY_PROFILE_PIC,
-										last.getString(AppProperties.MY_PROFILE_PIC));
-								session.setValue(AppProperties.SESSION_ID,
-										last.getString(AppProperties.SESSION_ID));
-								session.setValue(AppProperties.PROFILE_ID,
-										last.getString(AppProperties.MY_PROFILE_ID));
-								session.setValue(AppProperties.SESSION_NAME,
-										last.getString(AppProperties.SESSION_NAME));
-								session.setValue(AppProperties.DATABASE,
-										last.getString(AppProperties.DATABASE));
-								
-								if (session.commit()) 
-								{
-									//startService(new Intent(Login.this,RealTimeService.class));
-									startService(new Intent(Login.this,ChatService.class));	
-									Intent intent = new Intent(Login.this, WelcomeActivity.class);
-									startActivity(intent);
-									finish();
-								} 
-								else 
-								{
-									System.out.println("Some problem in Sigin. Please try again.");
-								}
-							} 
-							else if (last.has(getString(R.string.error))) 
-							{
-								JSONObject error = last.getJSONObject(getString(R.string.error));
-								if (error.getString(getString(R.string.code)).equals(AppProperties.WRONG_CREDENTIAL_CODE)) 
-								{
-									runOnUiThread(new Runnable() 
-									{
-										@Override
-										public void run() {
-											progressBar.setVisibility(View.INVISIBLE);
-											CommonMethods.ShowInfo(Login.this, getString(R.string.invalid_credential)).show();
-										}
-									});
-								}
-							}
-						}
-						else
-						{
-							Log.e("Empty Return from API", "Unable to login");
-						}
-					}
-					else
-					{
-						Log.e("Empty Return from API", "Unable to login");
-					}
+				result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
+				if(result != null){
+					data = result.getJSONObject(0);
 				}
-				else 
-				{	
-					runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							progressBar.setVisibility(View.INVISIBLE);
-							CommonMethods.ShowInfo(Login.this,
-									getString(R.string.network_error)).show();
-						}
-					});
-					
-				}
-			} catch (JSONException e) {
-				// should not happen
+			}
+			catch(JSONException e){
 				e.printStackTrace();
 			}
 
 			return null;
 		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			progressBar = (ProgressBar) findViewById(R.id.progressbar);
+			session = new Session(Login.this);
+
+			if(pdialog.isShowing())
+				pdialog.dismiss();
+
+			try {
+				if (data != null && data.has(AppProperties.ACK)) {
+					session.setValue(AppProperties.MY_PROFILE_NAME,
+							data.getString(AppProperties.MY_PROFILE_NAME));
+					session.setValue(AppProperties.MY_PROFILE_PIC,
+							data.getString(AppProperties.MY_PROFILE_PIC));
+					session.setValue(AppProperties.SESSION_ID,
+							data.getString(AppProperties.SESSION_ID));
+					session.setValue(AppProperties.PROFILE_ID,
+							data.getString(AppProperties.MY_PROFILE_ID));
+					session.setValue(AppProperties.SESSION_NAME,
+							data.getString(AppProperties.SESSION_NAME));
+					session.setValue(AppProperties.DATABASE,
+							data.getString(AppProperties.DATABASE));
+
+					if (session.commit()) {
+						startService(new Intent(Login.this, RealTimeService.class));
+						startService(new Intent(Login.this, ChatService.class));
+						Intent intent = new Intent(Login.this, WelcomeActivity.class);
+						startActivity(intent);
+						finish();
+					} else {
+						CommonMethods.ShowInfo(Login.this, "Some problem in Login. Please try again.").show();
+					}
+				} else if (data.has(getString(R.string.error))) {
+
+					JSONObject error = data
+							.getJSONObject(getString(R.string.error));
+					if (error.getString(getString(R.string.code)).equals(
+							AppProperties.WRONG_CREDENTIAL_CODE)) {
+						runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								progressBar.setVisibility(View.INVISIBLE);
+								CommonMethods.ShowInfo(Login.this,
+										getString(R.string.invalid_credential))
+										.show();
+							}
+						});
+
+					}
+
+				}
+			}
+			catch(Exception e){
+				Log.i("Exception", e.toString());
+			}
+		}
+	}
+	
+	class sendEmail extends AsyncTask<Void, Void, Void>{
+
+		ProgressDialog pdialog;
+		
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+		pdialog = new ProgressDialog(Login.this);
+		pdialog.setMessage("Please Wait");
+		pdialog.show();
+		}
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try{
+			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
+			
+			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_litmus_test"));
+			apiParams.add(new BasicNameValuePair(AppProperties.MOBILE, mobile));
+			
+			result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
+			if(result != null){
+				data=result.getJSONObject(0);
+				Log.i("data", data.toString());
+			}
+			}
+			catch(JSONException e){
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
 		
 		@Override
 		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
 			
-			if(progressBar.getVisibility()==View.VISIBLE)
-			progressBar.setVisibility(View.INVISIBLE);
+			if(pdialog.isShowing())
+				pdialog.dismiss();
+			
+			try{
+			if(data != null && data.has(AppProperties.ACK)){
+				CommonMethods.ShowInfo(Login.this, "A 4 digit code has been sent to your email").show();
+			}
+			else{
+				CommonMethods.ShowInfo(Login.this, "Something went wrong. Please try again.").show();
+			}
 		}
-	}
-
-	@Override
-	public void onBackPressed() 
-	{
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		Log.e("Stay On Login Page", "Stay on Login PAge on back Pressed");
+			catch(Exception e){
+				Log.i("Exception", e.toString());
+			}
+		}
 	}
 }

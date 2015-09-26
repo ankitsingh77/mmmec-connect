@@ -39,7 +39,4 @@ public class Logout extends Activity{
 		startActivity(login);
 		finish();
 	}
-	
-	
-
 }

@@ -34,6 +34,10 @@ public class AppProperties {
 	public static final String START="start";
 	public static final String FRIEND_COUNT="count";
 	public static final String PAGE="page";
+	public static final String CODE = "code";
+	public static final String MOBILE = "mobile";
+	public static final String IMEI = "imei";
+	public static final String DEVICE_UNIQUE_ID = "device_unique_id";
 	
 	// json objects obtains from friend fetch
 	public static final String NAME = "name";
