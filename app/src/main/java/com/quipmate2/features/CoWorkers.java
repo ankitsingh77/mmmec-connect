@@ -1,7 +1,9 @@
 package com.quipmate2.features;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -49,8 +51,10 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 	LinearLayout rlCoworker;
 	RelativeLayout[] llhlay;
 	ImageView[] iv;
-	TextView tvemail,tvname,tvprofession,tvteam,tvdesignation,tv;
+	Map<String,String> branchList = new HashMap<>();
+	TextView tvemail,tvname,tvcompany,tvbatch,tvphone,tvcity;
 	int i, scrollPosition=0;
+	String currentBatch = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,11 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 		scrcoworker.setOnTouchListener(this);
 		rlCoworker = (LinearLayout)findViewById((R.id.rlcoworker));
 		session = new Session(getApplicationContext());
+		branchList.put("COMPUTER SCIENCE","CSE");
+		branchList.put("ELECTRONICS","ECE");
+		branchList.put("MECHANICAL","ME");
+		branchList.put("ELECTRICAL","EE");
+		branchList.put("CIVIL","CE");
 		new CoWorkerFetch().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 	
@@ -79,10 +88,10 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
 			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_fetch"));
 			apiParams.add(new BasicNameValuePair("auth", session.getValue(AppProperties.PROFILE_ID)));
-			apiParams.add(new BasicNameValuePair("database","mmmut"));
+			apiParams.add(new BasicNameValuePair("database", "mmmut"));
 			
-			apiParams.add(new BasicNameValuePair("start", start+"")); 
-			Log.e("Previous Chat Parameters", apiParams.toString());
+			apiParams.add(new BasicNameValuePair("start", start + ""));
+			//Log.e("Previous Chat Parameters", apiParams.toString());
 			try{ 
 				adata = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);	
 				if(adata!=null)
@@ -102,7 +111,6 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 		protected void onPostExecute(Void result) {
 			
 			if(adata != null){
-				
 				Log.e("Chat", adata.toString());
 				JSONArray a = null,action;
 				JSONObject ao = null,co,cn,data;
@@ -118,26 +126,78 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 						Log.e("action",action.toString()); 
 						llhlay = new RelativeLayout[action.length()];
 						iv = new ImageView[action.length()];
-						String myprofileid = session.getValue(AppProperties.PROFILE_ID);
+						//String myprofileid = session.getValue(AppProperties.PROFILE_ID);
 						RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-						RelativeLayout.LayoutParams email_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-						RelativeLayout.LayoutParams designation_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-						RelativeLayout.LayoutParams profession_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-						RelativeLayout.LayoutParams team_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-						for(i=0;i< action.length(); i++)
+						//RelativeLayout.LayoutParams email_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+						RelativeLayout.LayoutParams company_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+						RelativeLayout.LayoutParams batch_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+						RelativeLayout.LayoutParams phone_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+						RelativeLayout.LayoutParams city_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+						RelativeLayout.LayoutParams batchyear_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+					for(i=0;i< action.length(); i++)
 						{
+							String companyName;
+							String batch;
+							String phoneNo;
+							String currentCity;
 							b = action.getString(i);
 							co = new JSONObject(b);
 							profileid = co.getString("profileid");
-							email = co.getString("email");   
+							//email = co.getString("email").toLowerCase()=="null"?"":co.getString("email").toLowerCase();
+							companyName = co.getString("company");
+							companyName = companyName.length()>4?CommonMethods.toCamelCase(co.getString("company")):companyName;
+							companyName = companyName.equals("null")?"":companyName;
+							String branch = co.getString("branch");
+							String year = co.getString("batch").trim();
+							if(currentBatch == null || !year.equals(currentBatch) )
+							{
+								currentBatch= year;
+								if(year.equals("0"))
+								{
+									year = "";
+								}
+								RelativeLayout batchInfo = new RelativeLayout(CoWorkers.this);
+								batchInfo.setBackgroundColor(Color.rgb(144, 145, 154));
+								TextView tvbatchYear = new TextView(CoWorkers.this);
+								batchyear_params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+								tvbatchYear.setTypeface(null, Typeface.BOLD);
+								tvbatchYear.setText(year);
+								tvbatchYear.setLayoutParams(batchyear_params);
+								batchInfo.addView(tvbatchYear);
+								rlCoworker.addView(batchInfo);
+							}
+							if(!branch.equals("null") && !year.equals("0"))
+							{
+								batch = branchList.get(branch) +"-" +year;
+							}
+							else if(branch.equals("null") && year.equals("0"))
+							{
+								batch = "";
+							}
+							else if(branch.equals("null"))
+							{
+								batch = year;
+							}
+							else
+							{
+								batch = branch;
+							}
+							phoneNo = co.getString("mobile");
+							phoneNo = phoneNo.equals("0") || phoneNo.equals("null")?"":phoneNo;
+							currentCity = CommonMethods.toCamelCase(co.getString("city"));
+							currentCity = currentCity.equals("Null")?"":currentCity;
 							tvname = new TextView(CoWorkers.this);  
 							tvemail = new TextView(CoWorkers.this);
+							tvcompany = new TextView(CoWorkers.this);
+							tvbatch = new TextView(CoWorkers.this);
+							tvphone = new TextView(CoWorkers.this);
+							tvcity = new TextView(CoWorkers.this);
 							llhlay[i] = new RelativeLayout(CoWorkers.this);
-							cn = new JSONObject(n);  
-							name = cn.getString(profileid);
+							cn = new JSONObject(n);
+							name = CommonMethods.toCamelCase(cn.getString(profileid));
 							iname = name;
 							llhlay[i].setOnClickListener((CoWorkers.this));
-							llhlay[i].setTag(R.id.TAG_PROFILEID,profileid);
+							llhlay[i].setTag(R.id.TAG_PROFILEID, profileid);
 							llhlay[i].setTag(R.id.TAG_NAME, iname);
 							
 							if(i%2==0)
@@ -150,27 +210,53 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							iv[i].setLayoutParams(layoutParams);
 							cn = new JSONObject(p); 
 							photo = cn.getString(profileid);
-							Log.e("message",  "after photo");
-							new image_fetch().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,photo,iv[i]);
+							Log.e("message", "after photo");
+							new image_fetch().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, photo, iv[i]);
 						    name_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
-						    email_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
+							phone_params.addRule(RelativeLayout.BELOW, tvbatch.getId());
+						   // email_params.addRule(RelativeLayout.BELOW, tvphone.getId());
+							company_params.addRule(RelativeLayout.BELOW, tvphone.getId());
+							batch_params.addRule(RelativeLayout.BELOW,tvname.getId());
+							city_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-						    
 						    name_params.setMargins(170, 10, 0, 0);
-						    tvname.setTypeface(null,Typeface.BOLD);
+						    tvname.setTypeface(null, Typeface.BOLD);
 						    tvname.setText(name);
 						    tvname.setLayoutParams(name_params);
-						    
-						    email_params.setMargins(170, 35, 0, 0);
+
+							batch_params.setMargins(170, 45, 0, 0);
+							tvbatch.setTypeface(null, Typeface.ITALIC);
+							tvbatch.setText(batch);
+							tvbatch.setLayoutParams(batch_params);
+
+							phone_params.setMargins(170, 75, 0, 0);
+							tvphone.setText(phoneNo);
+							tvphone.setLayoutParams(phone_params);
+
+							/*email_params.setMargins(170, 105, 0, 0);
 							tvemail.setText(email);
-							tvemail.setLayoutParams(email_params);
-							
+							tvemail.setLayoutParams(email_params);*/
+
+							company_params.setMargins(170, 105, 0, 0);
+							tvcompany.setTypeface(null, Typeface.ITALIC);
+							tvcompany.setText(companyName);
+							tvcompany.setLayoutParams(company_params);
+
+							city_params.setMargins(170, 105, 0, 0);
+							tvcity.setTypeface(null, Typeface.ITALIC);
+							tvcity.setText(currentCity);
+							tvcity.setLayoutParams(city_params);
+
 
 							llhlay[i].setPadding(10, 10, 10, 10); 
 							
 							llhlay[i].addView(iv[i]);
 							llhlay[i].addView(tvname); 
-							llhlay[i].addView(tvemail);
+							//llhlay[i].addView(tvemail);
+							llhlay[i].addView(tvbatch);
+							llhlay[i].addView(tvcompany);
+							llhlay[i].addView(tvphone);
+							llhlay[i].addView(tvcity);
 							rlCoworker.addView(llhlay[i]);
 						}
 						scrcoworker.fullScroll(ScrollView.FOCUS_DOWN);
