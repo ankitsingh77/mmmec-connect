@@ -38,7 +38,6 @@ import java.io.Console;
 public class Login extends Activity implements OnClickListener {
 	private EditText etMobile;
 	private Button btsignup;
-	private TextView codehave;
 	private JSONArray result;
 	private JSONObject data;
 	private Session signup;
@@ -77,7 +76,6 @@ public class Login extends Activity implements OnClickListener {
 			etMobile.setText(myMobile);
 		}
 		btsignup.setOnClickListener(this);
-		codehave.setOnClickListener(this);
 	}
 	
 	@Override
@@ -228,7 +226,7 @@ public class Login extends Activity implements OnClickListener {
 			
 			result = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);
 			if(result != null){
-				data=result.getJSONObject(0);
+				data = result.getJSONObject(0);
 				Log.i("data", data.toString());
 			}
 			}
@@ -250,12 +248,12 @@ public class Login extends Activity implements OnClickListener {
 				CommonMethods.ShowInfo(Login.this, "A 4 digit code has been sent to your email").show();
 				Intent intent = new Intent(Login.this, VerifyCode.class);
 				intent.putExtra(AppProperties.MOBILE, mobile);
+				intent.putExtra(AppProperties.PARAM_EMAIL, data.getString(AppProperties.PARAM_EMAIL));
 				startActivity(intent);
 				finish();
-
 			}
 			else{
-				CommonMethods.ShowInfo(Login.this, "Something went wrong. Please try again.").show();
+				CommonMethods.ShowInfo(Login.this, "This number is not registered in Malaviyan database.").show();
 			}
 		}
 			catch(Exception e){

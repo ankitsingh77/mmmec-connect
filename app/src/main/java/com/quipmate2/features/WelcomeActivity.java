@@ -37,8 +37,6 @@ public class WelcomeActivity extends FragmentActivity {
 	private ArrayList<NavigationListItem> arraylist;
 	private ActionBarDrawerToggle drawerToggle;
 	Session session;
-	String start="0";
-	JSONArray adata;
 
 	public class ListItemClicked implements OnItemClickListener {
 

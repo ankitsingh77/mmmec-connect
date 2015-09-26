@@ -372,11 +372,10 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 					
 			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
 			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "group_chat_fetch"));
-			//apiParams.add(new BasicNameValuePair(AppProperties.PROFILE_ID, userid));
 			apiParams.add(new BasicNameValuePair("auth", session.getValue(AppProperties.PROFILE_ID)));
 			apiParams.add(new BasicNameValuePair("start", start));
 			apiParams.add(new BasicNameValuePair("database","mmmut"));
-			Log.e("Previous Chat Parameters", apiParams.toString());
+			Log.e("Previous Chat Parameter", apiParams.toString());
 			try{ 
 				adata = CommonMethods.loadJSONData(AppProperties.URL, AppProperties.METHOD_GET, apiParams);		
 			}

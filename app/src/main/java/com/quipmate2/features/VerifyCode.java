@@ -8,18 +8,13 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.telephony.TelephonyManager;
-import android.provider.Settings.System;
 
 import com.example.quipmate2.R;
 import com.quipmate2.constants.AppProperties;
 import com.quipmate2.utils.CommonMethods;
-import com.quipmate2.utils.NetworkHelper;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,11 +24,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.io.Console;
 
 public class VerifyCode extends Activity implements OnClickListener {
     private EditText etVerifyCode;
@@ -44,7 +36,8 @@ public class VerifyCode extends Activity implements OnClickListener {
     private Session signup;
     private Session session;
     private ProgressBar progressBar;
-    private String mobile, code;
+    private String mobile, code, email;
+    private TextView tvEmail;
 
 
     @Override
@@ -52,19 +45,23 @@ public class VerifyCode extends Activity implements OnClickListener {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         getActionBar().setTitle("Malaviyan Login");
-        setContentView(R.layout.code_verify);
+        setContentView(R.layout.verify_code);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         Bundle iData = intent.getExtras();
 
         mobile = iData.getString(AppProperties.MOBILE);
+        email = iData.getString(AppProperties.PARAM_EMAIL);
 
         signup = new Session(VerifyCode.this);
         etVerifyCode = (EditText) findViewById(R.id.etVerifyCode);
+        tvEmail = (TextView) findViewById(R.id.tvEmail);
         btVerifyCode = (Button) findViewById(R.id.btVerifyCode);
         session = new Session(getApplicationContext());
         btVerifyCode.setOnClickListener(this);
+
+        tvEmail.setText(email);
     }
 
 
