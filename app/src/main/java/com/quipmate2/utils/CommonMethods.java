@@ -92,6 +92,25 @@ public class CommonMethods {
 		return builder;
 	}
 
+	public static String toCamelCase(String value)
+	{
+		String returnValue = "";
+		boolean nextCharacterCapital = true;
+		for(char c: value.toCharArray())
+		{
+			if(!Character.isSpaceChar(c))
+			{
+				returnValue+=nextCharacterCapital == true ? Character.toUpperCase(c) : Character.toLowerCase(c);
+				nextCharacterCapital =false;
+			}
+			else
+			{
+				nextCharacterCapital = true;
+				returnValue+=c;
+			}
+		}
+		return returnValue;
+	}
 	/**
 	 * Display toast.
 	 * 

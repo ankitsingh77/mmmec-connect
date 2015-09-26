@@ -77,7 +77,6 @@ public class Login extends Activity implements OnClickListener {
 			etMobile.setText(myMobile);
 		}
 		btsignup.setOnClickListener(this);
-		codehave.setOnClickListener(this);
 	}
 	
 	@Override
