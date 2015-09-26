@@ -38,9 +38,14 @@ public class AppProperties {
 	public static final String MOBILE = "mobile";
 	public static final String IMEI = "imei";
 	public static final String DEVICE_UNIQUE_ID = "device_unique_id";
-	
-	// json objects obtains from friend fetch
 	public static final String NAME = "name";
 	public static final String PROFILE_IMAGE = "pimage";
+	public static final String BATCH = "batch";
+	public static final String BRANCH = "branch";
+	public static final String BIRTHDAY = "birthday";
+	public static final String MARRIAGEDAY = "marriageday";
+	public static final String COMPANY = "company";
+	public static final String CITY = "city";
+
 	
 }

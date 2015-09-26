@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="logout">Logout</string>
     <string name="password">Password</string>
+	<string name="profileTvWidth">40dp</string>
     <string name="email">Email</string>
     <string name="mobile">Mobile(10 digits)</string>
     <string name="login">Login</string> 
