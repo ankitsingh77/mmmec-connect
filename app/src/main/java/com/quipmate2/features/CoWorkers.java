@@ -78,9 +78,8 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 					
 			List<NameValuePair> apiParams = new ArrayList<NameValuePair>();
 			apiParams.add(new BasicNameValuePair(AppProperties.ACTION, "malaviyan_fetch"));
-			apiParams.add(new BasicNameValuePair("new_user", "new_user"));
 			apiParams.add(new BasicNameValuePair("auth", session.getValue(AppProperties.PROFILE_ID)));
-			apiParams.add(new BasicNameValuePair("","mmmut"));
+			apiParams.add(new BasicNameValuePair("database","mmmut"));
 			
 			apiParams.add(new BasicNameValuePair("start", start+"")); 
 			Log.e("Previous Chat Parameters", apiParams.toString());
@@ -130,16 +129,9 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							b = action.getString(i);
 							co = new JSONObject(b);
 							profileid = co.getString("profileid");
-							status = co.getString("status");
-							profession = co.getString("profession");
-							designation = co.getString("designation");
-							team = co.getString("team");
 							email = co.getString("email");   
 							tvname = new TextView(CoWorkers.this);  
-							tvemail = new TextView(CoWorkers.this); 
-							tvprofession = new TextView(CoWorkers.this);  
-							tvdesignation = new TextView(CoWorkers.this);  
-							tvteam = new TextView(CoWorkers.this);
+							tvemail = new TextView(CoWorkers.this);
 							llhlay[i] = new RelativeLayout(CoWorkers.this);
 							cn = new JSONObject(n);  
 							name = cn.getString(profileid);
@@ -162,9 +154,7 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							new image_fetch().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,photo,iv[i]);
 						    name_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
 						    email_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
-						    designation_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
-						    profession_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
-						    team_params.addRule(RelativeLayout.RIGHT_OF, iv[i].getId());
+
 						    
 						    name_params.setMargins(170, 10, 0, 0);
 						    tvname.setTypeface(null,Typeface.BOLD);
@@ -175,34 +165,12 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							tvemail.setText(email);
 							tvemail.setLayoutParams(email_params);
 							
-							designation_params.setMargins(170, 60, 0, 0);
-							tvdesignation.setText(designation);
-							tvdesignation.setLayoutParams(designation_params);
-							
-							profession_params.setMargins(170, 85, 0, 0);
-							tvprofession.setText(profession);
-							tvprofession.setLayoutParams(profession_params);
-							
-							team_params.setMargins(170, 110, 0, 0);
-							tvteam.setText(team);
-							tvteam.setLayoutParams(team_params);
+
 							llhlay[i].setPadding(10, 10, 10, 10); 
 							
 							llhlay[i].addView(iv[i]);
 							llhlay[i].addView(tvname); 
-							llhlay[i].addView(tvemail); 
-							if(profession!=null && !profession.equalsIgnoreCase("null"))
-							{	
-								llhlay[i].addView(tvprofession); 
-							}
-							if(designation!=null && !designation.equalsIgnoreCase("null"))
-							{
-								llhlay[i].addView(tvdesignation); 
-							}
-							if(team!=null && !team.equalsIgnoreCase("null"))
-							{
-								llhlay[i].addView(tvteam); 
-							}	
+							llhlay[i].addView(tvemail);
 							rlCoworker.addView(llhlay[i]);
 						}
 						scrcoworker.fullScroll(ScrollView.FOCUS_DOWN);
