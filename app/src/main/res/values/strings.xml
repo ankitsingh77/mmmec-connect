@@ -10,8 +10,8 @@
     <string name="mobile">Mobile(10 digits)</string>
     <string name="login">Login</string> 
     <string name="code_got">Already have the code? <u>Click here!</u></string>
-    <string name="verify_code_desc">Enter the 4 digit code sent to your email address available in Malaviyan Database.</string>
-    <string name="enter_your_email">Enter Your Mobile number</string>
+    <string name="verify_code_desc">Please enter 4 digit code sent to your email present in Malaviyan Database.</string>
+    <string name="enter_your_email">Enter your mobile number</string>
 	<string name="enter_code">Enter 4 digit Code</string>
     <string name="signup_email">Sign Up</string>
     <string name="signup"><u>Registration - Malaviyan Database</u></string>
