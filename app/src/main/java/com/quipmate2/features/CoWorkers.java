@@ -54,6 +54,7 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 	Map<String,String> branchList = new HashMap<>();
 	TextView tvemail,tvname,tvcompany,tvbatch,tvphone,tvcity;
 	int i, scrollPosition=0;
+	String currentBatch = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,6 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 		protected void onPostExecute(Void result) {
 			
 			if(adata != null){
-				
 				Log.e("Chat", adata.toString());
 				JSONArray a = null,action;
 				JSONObject ao = null,co,cn,data;
@@ -126,13 +126,14 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 						Log.e("action",action.toString()); 
 						llhlay = new RelativeLayout[action.length()];
 						iv = new ImageView[action.length()];
-						String myprofileid = session.getValue(AppProperties.PROFILE_ID);
+						//String myprofileid = session.getValue(AppProperties.PROFILE_ID);
 						RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-						RelativeLayout.LayoutParams email_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+						//RelativeLayout.LayoutParams email_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 						RelativeLayout.LayoutParams company_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 						RelativeLayout.LayoutParams batch_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 						RelativeLayout.LayoutParams phone_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 						RelativeLayout.LayoutParams city_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+						RelativeLayout.LayoutParams batchyear_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 					for(i=0;i< action.length(); i++)
 						{
 							String companyName;
@@ -143,10 +144,28 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							co = new JSONObject(b);
 							profileid = co.getString("profileid");
 							//email = co.getString("email").toLowerCase()=="null"?"":co.getString("email").toLowerCase();
-							companyName = CommonMethods.toCamelCase(co.getString("company"));
-							companyName = companyName.equals("Null")?"":companyName;
+							companyName = co.getString("company");
+							companyName = companyName.length()>4?CommonMethods.toCamelCase(co.getString("company")):companyName;
+							companyName = companyName.equals("null")?"":companyName;
 							String branch = co.getString("branch");
-							String year = co.getString("batch");
+							String year = co.getString("batch").trim();
+							if(currentBatch == null || !year.equals(currentBatch) )
+							{
+								currentBatch= year;
+								if(year.equals("0"))
+								{
+									year = "";
+								}
+								RelativeLayout batchInfo = new RelativeLayout(CoWorkers.this);
+								batchInfo.setBackgroundColor(Color.rgb(144, 145, 154));
+								TextView tvbatchYear = new TextView(CoWorkers.this);
+								batchyear_params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+								tvbatchYear.setTypeface(null, Typeface.BOLD);
+								tvbatchYear.setText(year);
+								tvbatchYear.setLayoutParams(batchyear_params);
+								batchInfo.addView(tvbatchYear);
+								rlCoworker.addView(batchInfo);
+							}
 							if(!branch.equals("null") && !year.equals("0"))
 							{
 								batch = branchList.get(branch) +"-" +year;
