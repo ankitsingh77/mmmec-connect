@@ -12,7 +12,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,12 +21,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import com.example.quipmate2.R;
 import com.quipmate2.adapter.MessageSendAdapter;
 import com.quipmate2.constants.AppProperties;
-import com.quipmate2.features.CoWorkers.CoWorkerFetch;
 import com.quipmate2.utils.CommonMethods;
 
 import android.app.Activity;
@@ -35,7 +32,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Observable;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -49,14 +45,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.NumberPicker;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -95,7 +87,6 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 
 		    @Override
 		    public void onReceive(Context arg0, Intent arg1) {
-		        // TODO Auto-generated method stub
 		        android.util.Log.e("ReciverChagne", "IReciver");
 		    }
 
@@ -186,7 +177,7 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 			    				}
 			    				else
 			    				{
-			    					Log.e("Message is not sent by the person you are chatting with", "Message is not sent by the person you are chatting with");
+			    					Log.e("Message", "Message is not sent by the person you are chatting with");
 			    				}
 		    				} catch (JSONException e) {
 								// TODO Auto-generated catch block
@@ -227,31 +218,24 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 			
 			@Override
 			public void onClick(View v) {
-				if(!et_msg.getText().toString().trim().equalsIgnoreCase(""))
-                {	
-                	new SendChat().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
+			if(!et_msg.getText().toString().trim().equalsIgnoreCase(""))
+			{
+				new SendChat().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+			}
 			}
 		});
-		
 		new fetchMsgFriend().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
-
-	
 	
 	@Override
 	protected void onNewIntent(Intent intent) {
-		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
 		Bundle idata = intent.getExtras();
 		userid = "1000000122";
-		Log.e("new Intent","ON NEW INTENTNTNTNNTNTNNTNTNTNTNTNTNTNTNTNTNTNNTNTNTNTNTNTNTNTNTNTNTNTNTNTNNT");
 		title = "KUNAL SINGH";
 		llPrev.removeAllViews();
 		new fetchMsgFriend().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
-
-
 
 	@Override
 	protected void onStart() {
@@ -283,7 +267,6 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 			
 			@Override
 			protected void onPreExecute() {
-				// TODO Auto-generated method stub
 				tv = new TextView(Message.this);
 				tv.setBackgroundColor(Color.rgb(223, 238, 207));
 				tv.setPadding(10, 10, 10, 10);
@@ -300,11 +283,8 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 				scrllPrev.fullScroll(ScrollView.FOCUS_DOWN);
 			}
 			
-			
-			
 			@Override
 			protected Void doInBackground(Void... params) {
-				// TODO Auto-generated method stub
 				try{
 						
 						apiParams = new ArrayList<NameValuePair>();
@@ -360,12 +340,9 @@ public class Message extends Activity implements OnKeyListener, OnClickListener,
 		}
 	
 	class fetchMsgFriend extends AsyncTask<Void, Void, Void>{
-		
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			setProgressBarIndeterminateVisibility(true);
-			//Log.e("IntentExtraaaaaaaaaaaaaaaaaaaaaaaaaa from message _ fetch", userid);
 		}
 		@Override 
 		protected Void doInBackground(Void... params) {
@@ -522,21 +499,16 @@ class image_fetch extends AsyncTask<Void, Void, Void>{
 
 	@Override
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
-		System.out.println("OWOOWOWOOWOWOWOOOOOOOOOOOOOOOOWOWOOWOOOWOOWOOWOOOOOWOOOW");
 		return false;
 	}
 
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		// TODO Auto-generated method stub
 		
 		Log.e("Svroll Position x", scrllPrev.getScrollX()+"");
 		Log.e("Svroll Position y", scrllPrev.getScrollY()+"");
@@ -559,5 +531,4 @@ class image_fetch extends AsyncTask<Void, Void, Void>{
 		}
 		return false;
 	}
-
 }

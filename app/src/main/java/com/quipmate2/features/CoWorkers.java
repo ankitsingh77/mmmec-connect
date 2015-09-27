@@ -308,14 +308,9 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 	}
  
 	@Override
-	public void onClick(View v) { 
-		// TODO Auto-generated method stub
-		Log.i("onlick", "Inside On click Listener");
-		Intent in = new Intent(CoWorkers.this,Message.class); 
-		Log.i("profileid", profileid);
-		Log.i("name", iname);
-		in.putExtra("friendId", v.getTag(R.id.TAG_PROFILEID).toString());
-		in.putExtra("friendName", v.getTag(R.id.TAG_NAME).toString());
+	public void onClick(View v) {
+		Intent in = new Intent(CoWorkers.this,Profile.class);
+		in.putExtra(AppProperties.PROFILE_ID, profileid);
 		startActivity(in);
 	}
  

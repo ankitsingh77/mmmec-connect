@@ -14,12 +14,9 @@ import android.provider.Settings.System;
 import com.example.quipmate2.R;
 import com.quipmate2.constants.AppProperties;
 import com.quipmate2.utils.CommonMethods;
-import com.quipmate2.utils.NetworkHelper;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,11 +26,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.io.Console;
 
 public class Login extends Activity implements OnClickListener {
 	private EditText etMobile;
@@ -52,7 +45,7 @@ public class Login extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		getActionBar().setTitle("Malaviyan Login");
-		setContentView(R.layout.signup);
+		setContentView(R.layout.login);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		signup = new Session(Login.this);
