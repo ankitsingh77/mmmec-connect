@@ -249,7 +249,7 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 
 
 							llhlay[i].setPadding(10, 10, 10, 10); 
-							
+							llhlay[i].setTag(profileid);
 							llhlay[i].addView(iv[i]);
 							llhlay[i].addView(tvname); 
 							//llhlay[i].addView(tvemail);
@@ -310,7 +310,8 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 	@Override
 	public void onClick(View v) {
 		Intent in = new Intent(CoWorkers.this,Profile.class);
-		in.putExtra(AppProperties.PROFILE_ID, profileid);
+		String clickedProfileId = v.getTag().toString();
+		in.putExtra(AppProperties.PROFILE_ID, clickedProfileId);
 		startActivity(in);
 	}
  

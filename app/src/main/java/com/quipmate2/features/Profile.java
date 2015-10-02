@@ -35,8 +35,9 @@ public class Profile extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		getActionBar().setTitle("Malaviyan Login");
+
 		setContentView(R.layout.profile);
+		getActionBar().setTitle("Malaviyan Login");
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		profileid = getIntent().getExtras().getString(AppProperties.PROFILE_ID);
@@ -113,17 +114,86 @@ public class Profile extends Activity{
 
 				try {
 					Log.e("Code", data.toString());
-					if (data != null && data.has(AppProperties.ACK)) {
+					if (data != null) {
+						JSONObject action = new JSONObject(data.getString(AppProperties.ACTION));
+						String name = new JSONObject(data.getString(AppProperties.NAME)).getString(action.getString(AppProperties.PROFILE_ID));
+						if(!name.equals("null")) {
+							tvName.setText(name);
+						}
+                        getActionBar().setTitle(name);
+						String email = action.getString(AppProperties.PARAM_EMAIL);
+						if(!email.equals("null")) {
+							tvEmail.setText(email);
+							tvEmail.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvEmail.setVisibility(View.GONE);
+						}
+						String mobile = action.getString(AppProperties.MOBILE);
+						if(!mobile.equals("null")) {
+							tvMobile.setText(mobile);
+							tvMobile.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvMobile.setVisibility(View.GONE);
+						}
+						String batch = action.getString(AppProperties.BATCH);
+						if(!batch.equals("null")) {
+							tvBatch.setText(batch);
+							tvBatch.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvBatch.setVisibility(View.GONE);
+						}
+						String branch = action.getString(AppProperties.BRANCH);
+						if(!branch.equals("null")) {
+							tvBranch.setText(branch);
+							tvBranch.setVisibility(View.VISIBLE);
 
-						tvName.setText(data.getString(AppProperties.NAME));
-						tvEmail.setText(data.getString(AppProperties.PARAM_EMAIL));
-						tvMobile.setText(data.getString(AppProperties.MOBILE));
-						tvBatch.setText(data.getString(AppProperties.BATCH));
-						tvBranch.setText(data.getString(AppProperties.BRANCH));
-						tvBirthday.setText(data.getString(AppProperties.BIRTHDAY));
-						tvMarriageDay.setText(data.getString(AppProperties.MARRIAGEDAY));
-						tvCompany.setText(data.getString(AppProperties.COMPANY));
-						tvCity.setText(data.getString(AppProperties.CITY));
+						}
+						else
+						{
+							tvBranch.setVisibility(View.GONE);
+						}
+						String birthday = action.getString(AppProperties.BIRTHDAY);
+						if(!birthday.equals("null")) {
+							tvBirthday.setText(birthday);
+							tvBirthday.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvBirthday.setVisibility(View.GONE);
+						}
+						String marriage = action.getString(AppProperties.MARRIAGEDAY);
+						if(!marriage.equals("null")) {
+							tvMarriageDay.setText(marriage);
+							tvMarriageDay.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvMarriageDay.setVisibility(View.GONE);
+						}
+						String company = action.getString(AppProperties.COMPANY);
+						if(!company.equals("null")) {
+							tvCompany.setText(company);
+							tvCompany.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvCompany.setVisibility(View.GONE);
+						}
+						String city = action.getString(AppProperties.CITY);
+						if(!city.equals("null")) {
+							tvCity.setText(city);
+							tvCity.setVisibility(View.VISIBLE);
+						}
+						else
+						{
+							tvCity.setVisibility(View.GONE);
+						}
 
 					} else if (data.has(getString(R.string.error))) {
 

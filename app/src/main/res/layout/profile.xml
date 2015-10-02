@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,100 +13,91 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/ivPhoto"
         android:id="@+id/tvName"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Name"
-        />
+        android:text = "Name" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvName"
         android:id="@+id/tvBranch"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Branch"
-        />
+        android:text = "Branch" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvBranch"
         android:id="@+id/tvBatch"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Batch"
-        />
+        android:text = "Batch" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvBatch"
         android:id="@+id/tvMobile"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Mobile"
-        />
+        android:text = "Mobile" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvMobile"
         android:id="@+id/tvEmail"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Email"
-        />
+        android:text = "Email" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvEmail"
         android:id="@+id/tvBirthday"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Birthday"
-        />
+        android:text = "Birthday" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvBirthday"
         android:id="@+id/tvMarriageDay"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Marriage Day"
-        />
+        android:text = "Marriage Day" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvMarriageDay"
         android:id="@+id/tvCompany"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "Company"
-        />
+        android:text = "Company" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@string/profileTvWidth"
+        android:layout_height="40dp"
         android:layout_below="@+id/tvCompany"
         android:id="@+id/tvCity"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
         android:padding="10dp"
-        android:text = "City"
-        />
+        android:text = "City" />
 </RelativeLayout>
