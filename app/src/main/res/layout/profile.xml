@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="@dimen/padding_tiny" >
 
+    <ScrollView
+        android:id="@+id/scrprofile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -13,91 +20,93 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/ivPhoto"
+        android:layout_height="60dp"
         android:id="@+id/tvName"
+        android:layout_below="@id/ivPhoto"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Name" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvName"
         android:id="@+id/tvBranch"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Branch" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvBranch"
         android:id="@+id/tvBatch"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Batch" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvBatch"
         android:id="@+id/tvMobile"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Mobile" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvMobile"
         android:id="@+id/tvEmail"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Email" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvEmail"
         android:id="@+id/tvBirthday"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Birthday" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvBirthday"
         android:id="@+id/tvMarriageDay"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Marriage Day" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvMarriageDay"
         android:id="@+id/tvCompany"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "Company" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/tvCompany"
         android:id="@+id/tvCity"
         android:background="@color/profileTvColor"
         android:layout_marginTop="1dp"
-        android:padding="10dp"
+        android:padding="20dp"
         android:text = "City" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

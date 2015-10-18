@@ -28,10 +28,12 @@ import android.support.v4.view.MarginLayoutParamsCompat;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,10 +59,27 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 	String currentBatch = null;
 
 	@Override
+	public void onBackPressed()
+	{
+		super.onBackPressed();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				finish();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coworker);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		scrcoworker = (ScrollView)findViewById(R.id.scrcoworker);
 		scrcoworker.setOnTouchListener(this);
 		rlCoworker = (LinearLayout)findViewById((R.id.rlcoworker));
@@ -157,7 +176,7 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 									year = "";
 								}
 								RelativeLayout batchInfo = new RelativeLayout(CoWorkers.this);
-								batchInfo.setBackgroundColor(Color.rgb(144, 145, 154));
+								batchInfo.setBackgroundColor(Color.rgb(201, 201, 201));
 								TextView tvbatchYear = new TextView(CoWorkers.this);
 								batchyear_params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 								tvbatchYear.setTypeface(null, Typeface.BOLD);
@@ -199,11 +218,8 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							llhlay[i].setOnClickListener((CoWorkers.this));
 							llhlay[i].setTag(R.id.TAG_PROFILEID, profileid);
 							llhlay[i].setTag(R.id.TAG_NAME, iname);
-							
-							if(i%2==0)
-							{
-								llhlay[i].setBackgroundColor(Color.rgb(202, 213, 228));
-							}
+							llhlay[i].setBackgroundColor(Color.rgb(241, 241, 241));
+							llhlay[i].setPadding(0, 2, 0, 0);
 							iv[i] = new ImageView(CoWorkers.this);
 							LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);
 							layoutParams.setMargins(5, 0, 10, 0);
@@ -216,7 +232,7 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							phone_params.addRule(RelativeLayout.BELOW, tvbatch.getId());
 						   // email_params.addRule(RelativeLayout.BELOW, tvphone.getId());
 							company_params.addRule(RelativeLayout.BELOW, tvphone.getId());
-							batch_params.addRule(RelativeLayout.BELOW,tvname.getId());
+							batch_params.addRule(RelativeLayout.BELOW, tvname.getId());
 							city_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
 						    name_params.setMargins(170, 10, 0, 0);
@@ -257,7 +273,15 @@ public class CoWorkers extends Activity implements OnClickListener, OnTouchListe
 							llhlay[i].addView(tvcompany);
 							llhlay[i].addView(tvphone);
 							llhlay[i].addView(tvcity);
+                            LinearLayout.LayoutParams relativeParams = new LinearLayout.LayoutParams(
+                                    new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                            relativeParams.setMargins(0, 1, 0, 0);
+                            llhlay[i].setLayoutParams(relativeParams);
+                            llhlay[i].requestLayout();
 							rlCoworker.addView(llhlay[i]);
+
 						}
 						scrcoworker.fullScroll(ScrollView.FOCUS_DOWN);
 				}

@@ -20,8 +20,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Profile extends Activity{
 	private JSONArray result;
@@ -29,6 +33,7 @@ public class Profile extends Activity{
 	private ProgressBar progressBar;
 	private TextView tvName, tvBranch, tvBatch, tvMobile, tvEmail, tvBirthday, tvMarriageDay, tvCompany, tvCity;
 	private String profileid;
+	Map<String,String> branchList = new HashMap<>();
 
 
 	@Override
@@ -39,7 +44,11 @@ public class Profile extends Activity{
 		setContentView(R.layout.profile);
 		getActionBar().setTitle("Malaviyan Login");
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		branchList.put("COMPUTER SCIENCE","Computer Science & Engineering");
+		branchList.put("ELECTRONICS","Electronics & Communication Engineering");
+		branchList.put("MECHANICAL","Mechanical Engineering");
+		branchList.put("ELECTRICAL","Electrical Engineering");
+		branchList.put("CIVIL","Civil Engineering");
 		profileid = getIntent().getExtras().getString(AppProperties.PROFILE_ID);
 
 		tvName = (TextView)findViewById(R.id.tvName);
@@ -69,7 +78,6 @@ public class Profile extends Activity{
 	public void onBackPressed()
 	{
 		super.onBackPressed();
-		Log.e("Stay On SignUp Page", "Stay on SignUP page back Pressed");
 	}
 
 	public class ProfileFetch extends AsyncTask<Void, Void, Void>
@@ -80,7 +88,7 @@ public class Profile extends Activity{
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
 			pdialog = new ProgressDialog(Profile.this);
-			pdialog.setMessage("Signing in...");
+			pdialog.setMessage("Loading Profile....");
 			pdialog.show();
 		}
 
@@ -140,8 +148,8 @@ public class Profile extends Activity{
 							tvMobile.setVisibility(View.GONE);
 						}
 						String batch = action.getString(AppProperties.BATCH);
-						if(!batch.equals("null")) {
-							tvBatch.setText(batch);
+						if(!batch.equals("null") && !batch.equals("0")) {
+							tvBatch.setText("Batch - " + batch);
 							tvBatch.setVisibility(View.VISIBLE);
 						}
 						else
@@ -150,6 +158,7 @@ public class Profile extends Activity{
 						}
 						String branch = action.getString(AppProperties.BRANCH);
 						if(!branch.equals("null")) {
+							branch = branchList.get(branch);
 							tvBranch.setText(branch);
 							tvBranch.setVisibility(View.VISIBLE);
 
@@ -160,7 +169,9 @@ public class Profile extends Activity{
 						}
 						String birthday = action.getString(AppProperties.BIRTHDAY);
 						if(!birthday.equals("null")) {
-							tvBirthday.setText(birthday);
+							Date date = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+							String formattedBday = new SimpleDateFormat("dd-MMM-yyyy").format(date);
+							tvBirthday.setText("DOB - "+ formattedBday);
 							tvBirthday.setVisibility(View.VISIBLE);
 						}
 						else
@@ -169,7 +180,10 @@ public class Profile extends Activity{
 						}
 						String marriage = action.getString(AppProperties.MARRIAGEDAY);
 						if(!marriage.equals("null")) {
-							tvMarriageDay.setText(marriage);
+							Date date = new SimpleDateFormat("yyyy-MM-dd").parse(marriage);
+							String formattedMday = new SimpleDateFormat("dd-MMM-yyyy").format(date);
+							tvBirthday.setText(formattedMday);
+							tvMarriageDay.setText(" Marriage Date - "+ marriage);
 							tvMarriageDay.setVisibility(View.VISIBLE);
 						}
 						else

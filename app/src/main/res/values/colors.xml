@@ -2,11 +2,12 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="black">#333333</color>
-    <color name="background">#bbbbbb</color>
+    <color name="background">#dddddd</color>
     <color name="blue_backgroung_selected">#264768</color>
     <color name="border_color">#bcc1cc</color>
     <color name="button_background">#336699</color>
     <color name="nav_list_background">#303030</color>
     <color name="light_grey">#d3d3d3</color>
     <color name="profileTvColor">#f1f1f1</color>
+    
 </resources>
